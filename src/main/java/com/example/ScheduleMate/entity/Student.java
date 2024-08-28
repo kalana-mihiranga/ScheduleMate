@@ -9,7 +9,7 @@ import jakarta.persistence.Id;
 public class Student {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;  // Primary key field
+    private Long id;
 
     private String name;
 }
