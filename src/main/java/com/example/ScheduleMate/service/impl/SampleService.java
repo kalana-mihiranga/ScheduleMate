@@ -1,4 +1,4 @@
-package com.example.ScheduleMate.service;
+package com.example.ScheduleMate.service.impl;
 
 import com.example.ScheduleMate.config.exception.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
