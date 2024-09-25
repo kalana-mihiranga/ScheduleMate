@@ -3,7 +3,7 @@ package com.example.ScheduleMate.endpoints;
 import com.example.ScheduleMate.utils.ResponseCode;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.AllArgsConstructor;
+
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;

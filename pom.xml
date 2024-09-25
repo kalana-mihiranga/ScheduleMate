@@ -58,6 +58,11 @@
 			<artifactId>jakarta.validation-api</artifactId>
 			<version>3.0.2</version>
 		</dependency>
+		<dependency>
+			<groupId>com.amazonaws</groupId>
+			<artifactId>aws-java-sdk-chimesdkmeetings</artifactId>
+			<version>1.12.721</version>
+		</dependency>
 
 
 	</dependencies>
