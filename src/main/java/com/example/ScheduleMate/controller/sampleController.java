@@ -1,6 +1,6 @@
 package com.example.ScheduleMate.controller;
 import com.example.ScheduleMate.endpoints.APIResponse;
-import com.example.ScheduleMate.service.SampleService;
+import com.example.ScheduleMate.service.impl.SampleService;
 import com.example.ScheduleMate.utils.ResponseCode;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
