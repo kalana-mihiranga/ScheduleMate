@@ -33,8 +33,3 @@ public class Booking {
     private LocalDateTime bookingTime;
 }
 
-enum BookingStatus {
-    PENDING,
-    APPROVED,
-    REJECTED
-}
