@@ -18,6 +18,7 @@ public class ClientDtoUtils {
         client.setDateOfBirth(clientRequest.getDateOfBirth());
         return client;
     };
+
     public static final Function<Client, clientDto> CLIENT_CLIENT_DTO_FUNCTION = client -> {
         clientDto clientDto = new clientDto();
         clientDto.setId(client.getId());
