@@ -18,4 +18,18 @@ public class ClientDtoUtils {
         client.setDateOfBirth(clientRequest.getDateOfBirth());
         return client;
     };
+
+    public static final Function<Client, clientDto> CLIENT_CLIENT_DTO_FUNCTION = client -> {
+        clientDto clientDto = new clientDto();
+        clientDto.setId(client.getId());
+        clientDto.setEmail(client.getEmail());
+        clientDto.setName(client.getName());
+        clientDto.setHomeAddress(client.getHomeAddress());
+        clientDto.setFirstName(client.getFirstName());
+        clientDto.setLastName(client.getLastName());
+        clientDto.setPhoneNumber(client.getPhoneNumber());
+        clientDto.setDateOfBirth(client.getDateOfBirth());
+        return clientDto;
+    };
+
 }
