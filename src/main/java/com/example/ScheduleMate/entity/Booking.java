@@ -1,6 +1,7 @@
 package com.example.ScheduleMate.entity;
 
 
+import com.example.ScheduleMate.meta.BaseEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -12,10 +13,10 @@ import java.time.LocalDateTime;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Booking {
+public class Booking extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long bookingId;
+    private Long id;
     @Column(name = "client_id")
     private Long clientId;
     @Column(name = "event_id")

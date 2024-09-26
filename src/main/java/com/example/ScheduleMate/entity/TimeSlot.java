@@ -1,5 +1,6 @@
 package com.example.ScheduleMate.entity;
 
+import com.example.ScheduleMate.meta.BaseEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -12,11 +13,11 @@ import java.time.LocalDateTime;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class TimeSlot {
+public class TimeSlot extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long slotId;
+    private Long id;
     @Column(name="start_time")
     private LocalDateTime startTime;
     @Column(name="end_time")
@@ -24,7 +25,7 @@ public class TimeSlot {
     @Column(name="available_seats")
     private int availableSeats;
 
-    @ManyToOne(cascade = {CascadeType.ALL},fetch=FetchType.EAGER)
+    @ManyToOne(fetch=FetchType.EAGER)
     @JoinColumn(name = "event_id",referencedColumnName = "id")
     private Event event;
 

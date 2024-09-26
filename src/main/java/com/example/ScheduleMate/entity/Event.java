@@ -1,5 +1,6 @@
 package com.example.ScheduleMate.entity;
 
+import com.example.ScheduleMate.meta.BaseEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -13,12 +14,15 @@ import java.util.List;
 @AllArgsConstructor
 
 @Table(name = "event")
-public class Event {
+public class Event extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long eventId;
-    @Column(name = "provider_id")
-    private Long providerId;
+    private Long id;
+
+    @OneToOne
+    @JoinColumn(name = "provider_id")
+    private Client providerId;
+
     @Column(name = "event_title")
     private String eventTitle;
     @Column(name = "description")

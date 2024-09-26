@@ -14,11 +14,13 @@ public class EventServiceImpl implements EventService {
 
     @Override
     public Event postAvailabilityy(Event event) {
+
         return eventRepository.save(event);
     }
 
     @Override
     public List<Event> getAvailability() {
+
         return eventRepository.findAll();
     }
 }

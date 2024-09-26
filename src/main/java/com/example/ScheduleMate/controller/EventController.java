@@ -16,7 +16,7 @@ public class EventController {
 
     @PostMapping("/{providerId}/availability")
     public ResponseEntity<Event> postAvailability(@PathVariable Long providerId, @RequestBody Event event) {
-        event.setProviderId(providerId);
+//        event.setProviderId(providerId);
         return ResponseEntity.ok(eventService.postAvailabilityy(event));
     }
 
