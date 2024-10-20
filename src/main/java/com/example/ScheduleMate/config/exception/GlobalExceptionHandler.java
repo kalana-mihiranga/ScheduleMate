@@ -22,6 +22,15 @@ public class GlobalExceptionHandler {
 
     private static final Logger logger = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
+    // Handle CommonException and send custom error messages
+    @ExceptionHandler(CommonException.class)
+    public ResponseEntity<APIResponse<Void>> handleCommonException(CommonException ex, WebRequest request) {
+        logger.error("Custom error occurred: {}", ex.getMessage());
+        APIResponse<Void> response = new APIResponse<>(ex.getResponseCode());
+        response.setMessage(ex.getMessage());
+        return new ResponseEntity<>(response, HttpStatus.EXPECTATION_FAILED);
+    }
+
     // Handle missing request parameters
     @ExceptionHandler(MissingServletRequestParameterException.class)
     public ResponseEntity<APIResponse<Void>> handleMissingServletRequestParameterException(MissingServletRequestParameterException ex, WebRequest request) {

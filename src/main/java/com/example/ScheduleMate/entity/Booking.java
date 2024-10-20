@@ -1,6 +1,4 @@
 package com.example.ScheduleMate.entity;
-
-
 import com.example.ScheduleMate.meta.BaseEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -42,5 +40,6 @@ public class Booking extends BaseEntity {
 
     @Column(name = "booking_time")
     private LocalDateTime bookingTime;
+
 }
 

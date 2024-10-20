@@ -34,6 +34,10 @@ public class Client extends BaseEntity {
     @Column(name = "dateOfBirth")
     private Date dateOfBirth;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "role")
+    private Role role;
+
     @Column(name = "password")
     private String password;
 
