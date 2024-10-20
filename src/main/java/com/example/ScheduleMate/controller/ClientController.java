@@ -27,16 +27,14 @@ public class ClientController {
         return ResponseEntity.ok(new APIResponse<>(ResponseCode.SUCCESS));
     }
     @GetMapping("/all/clients")
-    @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<APIResponse<clientDto>> createClients(){
-        clientService.getAllClients();
-        return ResponseEntity.ok(new APIResponse<>(ResponseCode.SUCCESS));
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<APIResponse<List<clientDto>>> createClients(){
+        return ResponseEntity.ok(new APIResponse<>(ResponseCode.SUCCESS,clientService.getAllClients()));
     }
-    @PostMapping("/client/{phnNumber}")
-    @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<APIResponse<List<clientDto>>> createClients(@PathVariable("phnNumber") String phnNumber){
-        clientService.findClientByPhoneNumber(phnNumber);
-        return ResponseEntity.ok(new APIResponse<>(ResponseCode.SUCCESS));
+    @GetMapping("/{phnNumber}")
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<APIResponse<clientDto>> createClients(@PathVariable("phnNumber") String phnNumber){
+        return ResponseEntity.ok(new APIResponse<>(ResponseCode.SUCCESS,clientService.findClientByPhoneNumber(phnNumber)));
     }
 
 

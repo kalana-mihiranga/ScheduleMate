@@ -14,13 +14,13 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/providers")
+@RequestMapping("/events")
 @RequiredArgsConstructor
 public class EventController {
-    private EventService eventService;
+    private final  EventService eventService;
 
-    @PostMapping("/{providerId}/availability")
-    public ResponseEntity<APIResponse<Null>> createEvent(@PathVariable Long providerId, @RequestBody EventDto event) {
+    @PostMapping("/create")
+    public ResponseEntity<APIResponse<Null>> createEvent( @RequestBody EventDto event) {
 
         eventService.postAvailabilityy(event);
 

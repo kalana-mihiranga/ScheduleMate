@@ -24,6 +24,5 @@ public class TimeSlotDTO {
     @JsonProperty("availableSeats")
     private int availableSeats;
 
-    @JsonProperty("eventId")
-    private Long eventId;
+
 }
