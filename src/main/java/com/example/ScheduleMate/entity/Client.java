@@ -15,20 +15,32 @@ public class Client extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @Column(name = "name")
     private String name;
+
     @Column(name = "firstName")
     private String firstName;
+
     @Column(name = "lastName")
     private String lastName;
+
     @Column(name = "email")
     private String email;
+
     @Column(name = "phoneNumber")
     private String phoneNumber;
+
     @Column(name = "dateOfBirth")
     private Date dateOfBirth;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "role")
+    private Role role;
+
     @Column(name = "password")
     private String password;
+
     @Column(name = "homeAddress")
     private String homeAddress;
 

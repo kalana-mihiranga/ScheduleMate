@@ -1,10 +1,11 @@
 package com.example.ScheduleMate.service;
 
+import com.example.ScheduleMate.dto.EventDto;
 import com.example.ScheduleMate.entity.Event;
 
 import java.util.List;
 
 public interface EventService {
-    Event postAvailabilityy(Event event);
-    List<Event> getAvailability();
+    void postAvailabilityy(EventDto event);
+    List<EventDto> getAvailability();
 }

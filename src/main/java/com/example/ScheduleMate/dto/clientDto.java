@@ -28,6 +28,8 @@ public class clientDto {
     private Date dateOfBirth;
     @JsonProperty("homeAddress")
     private String homeAddress;
+    @JsonProperty("role")
+    private String role;
 
 
 
