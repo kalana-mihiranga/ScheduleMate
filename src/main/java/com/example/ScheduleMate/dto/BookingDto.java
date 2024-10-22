@@ -21,6 +21,9 @@ public class BookingDto {
     @JsonProperty("eventId")
     private Long eventId;
 
+    @JsonProperty("serviceId")
+    private Long serviceId;
+
     @JsonProperty("slotId")
     private Long slotId;
 

@@ -25,6 +25,14 @@ public class Booking extends BaseEntity {
     private Event event;
 
     @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH}, fetch = FetchType.LAZY)
+    @JoinColumn(name = "service_id",referencedColumnName = "id")
+    private Services services;
+
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH}, fetch = FetchType.LAZY)
+    @JoinColumn(name = "package_id",referencedColumnName = "id")
+    private Packages packages;
+
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH}, fetch = FetchType.LAZY)
     @JoinColumn(name = "slot_id",referencedColumnName = "id")
     private TimeSlot timeSlot;
 
