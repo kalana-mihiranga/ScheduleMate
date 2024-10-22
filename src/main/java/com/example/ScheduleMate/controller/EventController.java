@@ -27,6 +27,7 @@ public class EventController {
         return ResponseEntity.ok(new APIResponse<>(ResponseCode.SUCCESS));
     }
 
+    //getAllEvents
     @GetMapping("/availability")
     public ResponseEntity<APIResponse<List<EventDto>>> getAvailability() {
         return ResponseEntity.ok(new APIResponse<>(ResponseCode.SUCCESS,eventService.getAvailability()));

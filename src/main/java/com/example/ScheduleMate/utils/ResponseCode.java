@@ -11,6 +11,7 @@ public enum ResponseCode {
     BAD_REQUEST(1000, "Invalid Request"  ),
     UNAUTHORIZED(1000, "Invalid Request"  ),
     VALIDATION_ERROR(1000, "Invalid Request" ),
+    DUPLICATE(1010, "Duplicate Value" ),
 
     ROLE_ISSUE(1000, "No Prmission Granted For This Role" ),;
 

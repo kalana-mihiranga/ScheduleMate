@@ -25,17 +25,20 @@ public class ClientServiceImpl implements ClientService {
     @Override
     public void createClient(clientDto client) {
 
+        Optional<Client> res = Optional.ofNullable(clientRepository.findByEmail(client.getEmail()));
 
-        Client clientEntity = ClientDtoUtils.CLIENT_DTO_CLIENT_FUNCTION.apply(client);
-        if(client.getRole().equals(String.valueOf(Role.CLIENT))) {
-            clientEntity.setRole(Role.CLIENT);
-
-        }else if(client.getRole().equals(String.valueOf(Role.BUSINESS_OWNER))) {
-            clientEntity.setRole(Role.BUSINESS_OWNER);
-
+        if (res.isPresent()) {
+            throw new CommonException(ResponseCode.DUPLICATE);
+        } else  {
+            Client clientEntity = ClientDtoUtils.CLIENT_DTO_CLIENT_FUNCTION.apply(client);
+            if(client.getRole().equals(String.valueOf(Role.CLIENT))) {
+                clientEntity.setRole(Role.CLIENT);
+            }else if(client.getRole().equals(String.valueOf(Role.BUSINESS))) {
+                clientEntity.setRole(Role.BUSINESS);
+            }
+            clientRepository.save(clientEntity);
         }
 
-        clientRepository.save(clientEntity);
     }
 
     @Override
