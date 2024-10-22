@@ -30,4 +30,6 @@ public class Packages {
 
     @Column(name = "price")
     private BigDecimal price;
+
+
 }

@@ -14,17 +14,17 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/bookings")
+@RequestMapping("/clients")
 @RequiredArgsConstructor
 public class BookingController {
 
-    private BookingService bookingService;
+    private final BookingService bookingService;
 
 
 
-    @PostMapping("/clients/{clientId}")
+    @PostMapping("/{clientId}")
     public ResponseEntity<APIResponse<Null>> createBooking(@PathVariable Long clientId, @RequestBody BookingDto booking) {
-        booking.setClientId(clientId);
+
         bookingService.createBooking(booking);
         return ResponseEntity.ok(new APIResponse<>(ResponseCode.SUCCESS));
     }

@@ -1,9 +1,9 @@
 package com.example.ScheduleMate.controller;
 
-
-import com.example.ScheduleMate.dto.ServiceDto;
+import com.example.ScheduleMate.dto.EventDto;
+import com.example.ScheduleMate.dto.FeedbackDto;
 import com.example.ScheduleMate.endpoints.APIResponse;
-import com.example.ScheduleMate.service.ServiceService;
+import com.example.ScheduleMate.service.FeedbackService;
 import com.example.ScheduleMate.utils.ResponseCode;
 import jakarta.validation.constraints.Null;
 import lombok.RequiredArgsConstructor;
@@ -14,17 +14,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/services")
+@RequestMapping("/feedback")
 @RequiredArgsConstructor
-public class ServiceController {
-
-    private final ServiceService serviceService;
-
+public class FeedbackController {
+    private final FeedbackService feedbackService;
     @PostMapping("/create")
-    public ResponseEntity<APIResponse<Null>> createEvent(@RequestBody ServiceDto packages) {
-        serviceService.createPackage(packages);
+    public ResponseEntity<APIResponse<Null>> addFeedback(@RequestBody FeedbackDto feedbackDto) {
+
+        feedbackService.createFeedback(feedbackDto);
+
         return ResponseEntity.ok(new APIResponse<>(ResponseCode.SUCCESS));
     }
-
-
 }

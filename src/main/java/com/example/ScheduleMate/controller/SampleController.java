@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequiredArgsConstructor
 
-public class sampleController {
+public class SampleController {
     private final SampleService sampleService;
 
     @GetMapping("/sample")
