@@ -30,7 +30,7 @@ public class EventServiceImpl implements EventService {
 
         Optional<Client> client = clientRepository.findById(event.getProviderId());
         if(client.isPresent()){
-                    if (client.get().getRole() != Role.BUSINESS_OWNER) {
+                    if (client.get().getRole() != Role.BUSINESS) {
             throw new CommonException(ResponseCode.ROLE_ISSUE);
                     }
         }else{
