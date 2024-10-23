@@ -19,9 +19,6 @@ import java.util.List;
 public class BookingController {
 
     private final BookingService bookingService;
-
-
-
     @PostMapping("/{clientId}")
     public ResponseEntity<APIResponse<Null>> createBooking(@PathVariable Long clientId, @RequestBody BookingDto booking) {
 

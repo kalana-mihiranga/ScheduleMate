@@ -2,7 +2,8 @@ package com.example.ScheduleMate.service.impl;
 
 import com.example.ScheduleMate.config.exception.CommonException;
 import com.example.ScheduleMate.dto.EmailDto;
-import com.example.ScheduleMate.dto.clientDto;
+import com.example.ScheduleMate.dto.UserDto;
+import com.example.ScheduleMate.dto.ClientDto;
 import com.example.ScheduleMate.entity.Client;
 import com.example.ScheduleMate.entity.Role;
 import com.example.ScheduleMate.feignClient.EmailInterface;
@@ -26,7 +27,7 @@ public class ClientServiceImpl implements ClientService {
     private final ClientRepository clientRepository;
     private final EmailInterface emailInterface;
     @Override
-    public void createClient(clientDto client) {
+    public void createClient(ClientDto client) {
 
         Optional<Client> res = Optional.ofNullable(clientRepository.findByEmail(client.getEmail()));
 
@@ -40,10 +41,14 @@ public class ClientServiceImpl implements ClientService {
             }else if(client.getRole().equals(String.valueOf(Role.BUSINESS))) {
                 clientEntity.setRole(Role.BUSINESS);
             }
+
+            String hashedPassword = PasswordUtil.hashPassword(client.getPassword());
+            clientEntity.setPassword(hashedPassword);
+
             clientRepository.save(clientEntity);
             EmailDto emailDto = new EmailDto();
-            emailDto.setEmail("kalanamihiranga97@gmail.com");
-//            emailDto.setEmail("mdsmabeyrathne@gmail.com");
+//            emailDto.setEmail("kalanamihiranga97@gmail.com");
+            emailDto.setEmail("mdsmabeyrathne@gmail.com");
            // emailDto.setEmail("akmuthumala@gmail.com");
             emailDto.setSubject("\uD83D\uDC8D Congratulations on Your Wedding Day! \uD83C\uDF89\n" +
                     "\n");
@@ -64,7 +69,21 @@ public class ClientServiceImpl implements ClientService {
     }
 
     @Override
-    public clientDto findClientByPhoneNumber(String phoneNumber) {
+    public boolean authenticateClient(UserDto userDto) {
+        Optional<Client> clientByEmail = Optional.ofNullable(clientRepository.findByEmail(userDto.getUserName()));
+
+
+        if (clientByEmail.isPresent()) {
+            // Verify the plain password against the hashed password in the database
+            return PasswordUtil.verifyPassword(userDto.getPassword(), clientByEmail.get().getPassword());
+        }
+
+        return false;
+
+    }
+
+    @Override
+    public ClientDto findClientByPhoneNumber(String phoneNumber) {
 
         Optional<Client> clientByPhoneNumber = Optional.ofNullable(clientRepository.findByPhoneNumber(phoneNumber));
 
@@ -79,7 +98,7 @@ public class ClientServiceImpl implements ClientService {
     }
 
     @Override
-    public List<clientDto> getAllClients() {
+    public List<ClientDto> getAllClients() {
         return  clientRepository.findAll().
                 stream().map(e->ClientDtoUtils.CLIENT_CLIENT_DTO_FUNCTION.apply(e)).collect(Collectors.toList());
 

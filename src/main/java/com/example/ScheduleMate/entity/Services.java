@@ -53,6 +53,9 @@ public class Services extends BaseEntity {
     @Column(name = "available_day")
     private List<DayOfWeek> availability;
 
+    @OneToMany(mappedBy = "services", cascade = CascadeType.ALL, orphanRemoval = true)
+
+    private List<PackageServices> packageServices;
 
     @Column(name = "image_url")
     private String imageUrl;
