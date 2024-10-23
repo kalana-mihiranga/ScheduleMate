@@ -1,9 +1,7 @@
 package com.example.ScheduleMate.controller;
 
-import com.example.ScheduleMate.dto.EventDto;
 import com.example.ScheduleMate.dto.PackageDto;
 import com.example.ScheduleMate.endpoints.APIResponse;
-import com.example.ScheduleMate.service.EventService;
 import com.example.ScheduleMate.service.PackageService;
 import com.example.ScheduleMate.utils.ResponseCode;
 import jakarta.validation.constraints.Null;

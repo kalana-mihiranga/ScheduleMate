@@ -28,8 +28,6 @@ public class TimeSlot extends BaseEntity {
     @Column(name="available_seats")
     private int availableSeats;
 
-    @ManyToOne(fetch=FetchType.EAGER)
-    @JoinColumn(name = "event_id",referencedColumnName = "id")
-    private Event event;
+
 
 }

@@ -13,6 +13,7 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "packages")
+
 public class Packages {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,6 +31,9 @@ public class Packages {
 
     @Column(name = "price")
     private BigDecimal price;
+
+    @OneToOne(mappedBy = "packages")
+    private PackageServices packageServices;
 
 
 }

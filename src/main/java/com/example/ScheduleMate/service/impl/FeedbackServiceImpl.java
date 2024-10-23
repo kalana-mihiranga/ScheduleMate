@@ -1,7 +1,6 @@
 package com.example.ScheduleMate.service.impl;
 
 import com.example.ScheduleMate.config.exception.CommonException;
-import com.example.ScheduleMate.dto.EventDto;
 import com.example.ScheduleMate.dto.FeedbackDto;
 import com.example.ScheduleMate.entity.Feedback;
 import com.example.ScheduleMate.repository.BookingRepository;

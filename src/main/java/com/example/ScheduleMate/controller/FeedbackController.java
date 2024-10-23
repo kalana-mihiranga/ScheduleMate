@@ -1,6 +1,5 @@
 package com.example.ScheduleMate.controller;
 
-import com.example.ScheduleMate.dto.EventDto;
 import com.example.ScheduleMate.dto.FeedbackDto;
 import com.example.ScheduleMate.endpoints.APIResponse;
 import com.example.ScheduleMate.service.FeedbackService;
