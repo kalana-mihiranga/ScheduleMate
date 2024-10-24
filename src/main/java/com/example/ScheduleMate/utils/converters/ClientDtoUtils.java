@@ -1,12 +1,12 @@
 package com.example.ScheduleMate.utils.converters;
 
-import com.example.ScheduleMate.dto.clientDto;
+import com.example.ScheduleMate.dto.ClientDto;
 import com.example.ScheduleMate.entity.Client;
 
 import java.util.function.Function;
 
 public class ClientDtoUtils {
-    public static final Function<clientDto, Client> CLIENT_DTO_CLIENT_FUNCTION = clientRequest -> {
+    public static final Function<ClientDto, Client> CLIENT_DTO_CLIENT_FUNCTION = clientRequest -> {
         Client client = new Client();
         client.setId(clientRequest.getId());
         client.setEmail(clientRequest.getEmail());
@@ -19,8 +19,8 @@ public class ClientDtoUtils {
         return client;
     };
 
-    public static final Function<Client, clientDto> CLIENT_CLIENT_DTO_FUNCTION = client -> {
-        clientDto clientDto = new clientDto();
+    public static final Function<Client, ClientDto> CLIENT_CLIENT_DTO_FUNCTION = client -> {
+        ClientDto clientDto = new ClientDto();
         clientDto.setId(client.getId());
         clientDto.setEmail(client.getEmail());
         clientDto.setName(client.getName());

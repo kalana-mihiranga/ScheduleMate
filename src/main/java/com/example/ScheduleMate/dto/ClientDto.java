@@ -10,7 +10,7 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class clientDto {
+public class ClientDto {
 
     @JsonProperty("id")
     private Long id;
@@ -30,6 +30,8 @@ public class clientDto {
     private String homeAddress;
     @JsonProperty("role")
     private String role;
+    @JsonProperty("password")
+    private String password;
 
 
 
