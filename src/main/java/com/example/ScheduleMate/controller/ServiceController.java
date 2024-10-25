@@ -8,23 +8,50 @@ import com.example.ScheduleMate.utils.ResponseCode;
 import jakarta.validation.constraints.Null;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/services")
 @RequiredArgsConstructor
+@CrossOrigin("*")
 public class ServiceController {
 
     private final ServiceService serviceService;
 
     @PostMapping("/create")
-    public ResponseEntity<APIResponse<Null>> createEvent(@RequestBody ServiceDto packages) {
-        serviceService.createPackage(packages);
+    public ResponseEntity<APIResponse<Null>> createService(@RequestBody ServiceDto serviceDto) {
+        serviceService.createPackage(serviceDto);
         return ResponseEntity.ok(new APIResponse<>(ResponseCode.SUCCESS));
     }
+
+    @GetMapping("/list")
+    public ResponseEntity<APIResponse<List<ServiceDto>>> listAllServices() {
+        List<ServiceDto> services = serviceService.getAllServices();
+        return ResponseEntity.ok(new APIResponse<>(ResponseCode.SUCCESS, services));
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<APIResponse<ServiceDto>> getServiceById(@PathVariable Long id) {
+        ServiceDto service = serviceService.getServiceById(id);
+        return ResponseEntity.ok(new APIResponse<>(ResponseCode.SUCCESS, service));
+    }
+
+    @PutMapping("/update/{id}")
+    public ResponseEntity<APIResponse<Null>> updateService(
+            @PathVariable Long id,
+            @RequestBody ServiceDto serviceDto) {
+        serviceService.updateService(id, serviceDto);
+        return ResponseEntity.ok(new APIResponse<>(ResponseCode.SUCCESS));
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<APIResponse<Null>> deleteService(@PathVariable Long id) {
+        serviceService.deleteService(id);
+        return ResponseEntity.ok(new APIResponse<>(ResponseCode.SUCCESS));
+    }
+
 
 
 }
