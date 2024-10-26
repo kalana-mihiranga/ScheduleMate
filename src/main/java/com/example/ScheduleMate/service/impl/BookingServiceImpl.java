@@ -3,11 +3,13 @@ package com.example.ScheduleMate.service.impl;
 import com.example.ScheduleMate.dto.BookingDto;
 import com.example.ScheduleMate.entity.Booking;
 import com.example.ScheduleMate.entity.BookingStatus;
+import com.example.ScheduleMate.notification.events.BookingNotificationEvent;
 import com.example.ScheduleMate.repository.BookingRepository;
 import com.example.ScheduleMate.repository.ServicesRepository;
 import com.example.ScheduleMate.service.BookingService;
 import com.example.ScheduleMate.utils.converters.BookingDtoUtils;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,17 +20,19 @@ import java.util.stream.Collectors;
 public class BookingServiceImpl implements BookingService {
     private final BookingRepository bookingRepository;
     private final ServicesRepository servicesRepository;
+
+    private final ApplicationEventPublisher eventPublisher;
     @Override
     public void createBooking(BookingDto booking) {
         Booking bookingDetails = BookingDtoUtils.BOOKING_DTO_TO_BOOKING_FUNCTION.apply(booking);
-
         bookingDetails.setStatus(BookingStatus.PENDING);
         bookingDetails.setBookingTime(java.time.LocalDateTime.now());
-
-        bookingDetails.setServices(servicesRepository.findById(booking.getServiceId()).get());
+        bookingDetails.setServices(servicesRepository.findById(booking.getServiceId()).orElse(null));
 
         bookingRepository.save(bookingDetails);
 
+        eventPublisher.publishEvent(new BookingNotificationEvent(this, "client", "New booking confirmed!", "push"));
+//        eventPublisher.publishEvent(new BookingNotificationEvent(this, "business", "Your booking has been approved.", "inapp"));
     }
 
     @Override
