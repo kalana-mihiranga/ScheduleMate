@@ -5,6 +5,7 @@ import com.example.ScheduleMate.dto.ServiceDto;
 import com.example.ScheduleMate.endpoints.APIResponse;
 import com.example.ScheduleMate.service.ServiceService;
 import com.example.ScheduleMate.utils.ResponseCode;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.Null;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -21,7 +22,7 @@ public class ServiceController {
     private final ServiceService serviceService;
 
     @PostMapping("/create")
-    public ResponseEntity<APIResponse<Null>> createService(@RequestBody ServiceDto serviceDto) {
+    public ResponseEntity<APIResponse<Null>> createService(@Valid @RequestBody ServiceDto serviceDto) {
         serviceService.createPackage(serviceDto);
         return ResponseEntity.ok(new APIResponse<>(ResponseCode.SUCCESS));
     }
@@ -39,7 +40,7 @@ public class ServiceController {
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<APIResponse<Null>> updateService(
+    public ResponseEntity<APIResponse<Null>> updateService(@Valid
             @PathVariable Long id,
             @RequestBody ServiceDto serviceDto) {
         serviceService.updateService(id, serviceDto);

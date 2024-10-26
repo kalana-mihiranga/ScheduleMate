@@ -6,6 +6,7 @@ import com.example.ScheduleMate.entity.Booking;
 import com.example.ScheduleMate.entity.BookingStatus;
 import com.example.ScheduleMate.service.BookingService;
 import com.example.ScheduleMate.utils.ResponseCode;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.Null;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -20,14 +21,14 @@ public class BookingController {
 
     private final BookingService bookingService;
     @PostMapping("/{clientId}")
-    public ResponseEntity<APIResponse<Null>> createBooking(@PathVariable Long clientId, @RequestBody BookingDto booking) {
+    public ResponseEntity<APIResponse<Null>> createBooking(@Valid  @PathVariable Long clientId, @RequestBody BookingDto booking) {
 
         bookingService.createBooking(booking);
         return ResponseEntity.ok(new APIResponse<>(ResponseCode.SUCCESS));
     }
 
     @PutMapping("/providers/{providerId}/{bookingId}")
-    public ResponseEntity<APIResponse<BookingDto>> approveOrRejectBooking(@PathVariable Long providerId,
+    public ResponseEntity<APIResponse<BookingDto>> approveOrRejectBooking(@Valid @PathVariable Long providerId,
                                                           @PathVariable Long bookingId,
                                                           @RequestParam("status") BookingStatus status,
                                                           @RequestBody String providerNotes) {
