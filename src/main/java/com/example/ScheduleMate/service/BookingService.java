@@ -10,5 +10,4 @@ public interface BookingService {
     void createBooking(BookingDto booking);
     BookingDto approveOrRejectBooking(Long bookingId, BookingStatus status, String providerNotes);
     List<BookingDto> getBookingsByClientId(Long clientId);
-
 }

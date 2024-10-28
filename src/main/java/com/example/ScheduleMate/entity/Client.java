@@ -12,6 +12,7 @@ import java.util.Date;
 @Setter
 @Table(name = "client")
 public class Client extends BaseEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

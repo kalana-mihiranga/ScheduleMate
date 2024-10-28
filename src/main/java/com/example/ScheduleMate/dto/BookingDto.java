@@ -31,11 +31,12 @@ public class BookingDto {
     private String notes;
 
     @JsonProperty("status")
-    private String status; // Using String for simplicity in the DTO
+    private String status;
 
     @JsonProperty("providerNotes")
     private String providerNotes;
 
     @JsonProperty("bookingTime")
     private LocalDateTime bookingTime;
+
 }

@@ -26,5 +26,4 @@ public class ServiceController {
         return ResponseEntity.ok(new APIResponse<>(ResponseCode.SUCCESS));
     }
 
-
 }

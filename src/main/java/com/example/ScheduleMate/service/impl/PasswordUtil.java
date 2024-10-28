@@ -1,4 +1,4 @@
-package com.example.ScheduleMate.service.impl;
+package com.example.ScheduleMate.service.Impl;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 

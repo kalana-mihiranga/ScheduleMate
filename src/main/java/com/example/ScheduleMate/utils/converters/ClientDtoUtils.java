@@ -6,6 +6,7 @@ import com.example.ScheduleMate.entity.Client;
 import java.util.function.Function;
 
 public class ClientDtoUtils {
+
     public static final Function<ClientDto, Client> CLIENT_DTO_CLIENT_FUNCTION = clientRequest -> {
         Client client = new Client();
         client.setId(clientRequest.getId());

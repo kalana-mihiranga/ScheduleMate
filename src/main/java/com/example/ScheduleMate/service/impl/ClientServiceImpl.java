@@ -1,4 +1,4 @@
-package com.example.ScheduleMate.service.impl;
+package com.example.ScheduleMate.service.Impl;
 
 import com.example.ScheduleMate.config.exception.CommonException;
 import com.example.ScheduleMate.dto.EmailDto;
@@ -26,6 +26,8 @@ import java.util.stream.Collectors;
 public class ClientServiceImpl implements ClientService {
     private final ClientRepository clientRepository;
     private final EmailInterface emailInterface;
+//    private final PasswordUtil passwordUtil;
+
     @Override
     public void createClient(ClientDto client) {
 

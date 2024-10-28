@@ -1,6 +1,5 @@
 package com.example.ScheduleMate.entity;
 
-
 import com.example.ScheduleMate.meta.BaseEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -54,24 +53,9 @@ public class Services extends BaseEntity {
     private List<DayOfWeek> availability;
 
     @OneToMany(mappedBy = "services", cascade = CascadeType.ALL, orphanRemoval = true)
-
     private List<PackageServices> packageServices;
 
     @Column(name = "image_url")
     private String imageUrl;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 }

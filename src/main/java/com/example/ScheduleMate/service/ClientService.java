@@ -7,9 +7,7 @@ import java.util.List;
 
 public interface ClientService {
     void createClient(ClientDto client);
-
     boolean authenticateClient(UserDto userDto);
     ClientDto findClientByPhoneNumber(String phoneNumber)  ;
     List<ClientDto> getAllClients();
-
 }
