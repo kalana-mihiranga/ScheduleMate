@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @Entity
 @Data
@@ -23,15 +24,22 @@ public class Packages {
     private String name;
 
     @Column(name = "duration")
-    private String duration;
+    private Integer duration;
 
     @Column(name = "maximum_count")
-    private String maximumCount;
+    private Integer maximumCount;
 
     @Column(name = "price")
     private BigDecimal price;
 
-    @OneToOne(mappedBy = "packages")
-    private PackageServices packageServices;
+    @ManyToMany(mappedBy = "packages")
+    private List<Services> services;
+
+    @ManyToOne(cascade = {CascadeType.ALL})
+    @JoinColumn(name = "client_id")
+    private Client client;
+
+    @OneToMany(mappedBy = "packages", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Booking> booking;
 
 }

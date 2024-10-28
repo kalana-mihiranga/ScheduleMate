@@ -25,14 +25,8 @@ public class Services extends BaseEntity {
     @Column(name = "name")
     private String name;
 
-    @Column(name = "price")
-    private BigDecimal price;
-
     @Column(name = "discount_rate")
-    private BigDecimal discountRate;
-
-    @Column(name = "duration")
-    private Long duration;
+    private Integer discountRate;
 
     @Column(name = "description")
     private String description;
@@ -47,13 +41,21 @@ public class Services extends BaseEntity {
     private LocalTime serviceTo;
 
     @ElementCollection
-    @CollectionTable(name = "package_availability", joinColumns = @JoinColumn(name = "package_id"))
+    @CollectionTable(name = "service_days", joinColumns = @JoinColumn(name = "service_id"))
     @Enumerated(EnumType.STRING)
     @Column(name = "available_day")
     private List<DayOfWeek> availability;
 
+    @ManyToMany(cascade = {CascadeType.MERGE})
+    @JoinTable(name = "service_package", joinColumns = @JoinColumn(name = "service_id"), inverseJoinColumns = @JoinColumn(name = "package_id"))
+    private List<Packages> packages;
+
+    @ManyToOne(cascade = {CascadeType.ALL})
+    @JoinColumn(name = "client_id")
+    private Client client;
+
     @OneToMany(mappedBy = "services", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<PackageServices> packageServices;
+    private List<Booking> booking;
 
     @Column(name = "image_url")
     private String imageUrl;

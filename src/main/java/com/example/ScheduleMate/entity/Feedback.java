@@ -21,22 +21,18 @@ public class Feedback extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
+    @ManyToOne(cascade = {CascadeType.ALL})
     @JoinColumn(name = "client_id")
     private Client client;
 
-    @OneToOne(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
-    @JoinColumn(name = "services_id")
-    private Services services;
-
-    @OneToOne(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
-    @JoinColumn(name = "booking_id")
-    private Booking booking;
+    @ManyToOne(cascade = {CascadeType.ALL})
+    @JoinColumn(name = "business_id")
+    private Client business;
 
     @Column(name = "rating")
-    private int rating; // Assuming rating is an integer from 1-5
+    private Integer rating;
 
-    @Column(name = "comments")
-    private String comments;
+    @Column(name = "comment")
+    private String comment;
 
 }

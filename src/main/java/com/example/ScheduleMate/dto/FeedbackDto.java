@@ -16,16 +16,13 @@ public class FeedbackDto {
     @JsonProperty("clientId")
     private Long clientId;
 
-    @JsonProperty("serviceId")
-    private Long serviceId;
-
-    @JsonProperty("bookingId")
-    private Long bookingId;
+    @JsonProperty("businessId")
+    private Long businessId;
 
     @JsonProperty("rating")
-    private int rating;
+    private Integer rating;
 
-    @JsonProperty("comments")
-    private String comments;
+    @JsonProperty("comment")
+    private String comment;
 
 }
