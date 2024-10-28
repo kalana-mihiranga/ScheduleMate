@@ -7,7 +7,7 @@ import com.example.ScheduleMate.entity.BookingStatus;
 import java.util.List;
 
 public interface BookingService {
-    void createBooking(BookingDto booking);
+    void createBooking(BookingDto bookingDto);
     BookingDto approveOrRejectBooking(Long bookingId, BookingStatus status, String providerNotes);
     List<BookingDto> getBookingsByClientId(Long clientId);
 }

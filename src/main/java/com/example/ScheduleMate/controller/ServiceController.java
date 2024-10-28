@@ -17,13 +17,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/services")
 @RequiredArgsConstructor
 public class ServiceController {
-
     private final ServiceService serviceService;
 
     @PostMapping("/create")
-    public ResponseEntity<APIResponse<Null>> createEvent(@RequestBody ServiceDto packages) {
-        serviceService.createPackage(packages);
-        return ResponseEntity.ok(new APIResponse<>(ResponseCode.SUCCESS));
+    public ResponseEntity<APIResponse<?>> createEvent(@RequestBody ServiceDto serviceDto) {
+        serviceService.createService(serviceDto);
+        return ResponseEntity.ok(new APIResponse<>(ResponseCode.SUCCESS, serviceDto));
     }
-
 }

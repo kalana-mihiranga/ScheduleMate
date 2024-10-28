@@ -12,7 +12,8 @@ public enum ResponseCode {
     UNAUTHORIZED(1000, "Invalid Request"  ),
     VALIDATION_ERROR(1000, "Invalid Request" ),
     DUPLICATE(1010, "Duplicate Value" ),
-    ROLE_ISSUE(1000, "No Prmission Granted For This Role" );
+    ROLE_ISSUE(1000, "No Prmission Granted For This Role" ),
+    RESOURCE_NOT_FOUND(404, "Resource Not Found");
 
     private final int code;
     private final String description;

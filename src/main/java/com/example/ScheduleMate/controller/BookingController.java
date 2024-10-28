@@ -14,15 +14,16 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/clients")
+@RequestMapping("/booking")
 @RequiredArgsConstructor
 public class BookingController {
 
     private final BookingService bookingService;
-    @PostMapping("/{clientId}")
-    public ResponseEntity<APIResponse<Null>> createBooking(@PathVariable Long clientId, @RequestBody BookingDto booking) {
-        bookingService.createBooking(booking);
-        return ResponseEntity.ok(new APIResponse<>(ResponseCode.SUCCESS));
+
+    @PostMapping("/create")
+    public ResponseEntity<APIResponse<?>> createBooking(@RequestBody BookingDto bookingDto) {
+        bookingService.createBooking(bookingDto);
+        return ResponseEntity.ok(new APIResponse<>(ResponseCode.SUCCESS, bookingDto));
     }
 
     @PutMapping("/providers/{providerId}/{bookingId}")

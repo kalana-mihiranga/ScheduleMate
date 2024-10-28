@@ -18,17 +18,14 @@ public class ServiceDto {
     @JsonProperty("id")
     private Long id;
 
+    @JsonProperty("businessId")
+    private Long businessId;
+
     @JsonProperty("name")
     private String name;
 
-    @JsonProperty("price")
-    private BigDecimal price;
-
     @JsonProperty("discountRate")
-    private BigDecimal discountRate;
-
-    @JsonProperty("duration")
-    private Long duration;
+    private Integer discountRate;
 
     @JsonProperty("description")
     private String description;
@@ -44,6 +41,9 @@ public class ServiceDto {
 
     @JsonProperty("availability")
     private List<DayOfWeek> availability;
+
+    @JsonProperty("packageList")
+    private List<ServicePackageDto> packageList;
 
     @JsonProperty("imageUrl")
     private String imageUrl;
