@@ -28,6 +28,4 @@ public class TimeSlot extends BaseEntity {
     @Column(name="available_seats")
     private int availableSeats;
 
-
-
 }

@@ -21,7 +21,6 @@ public class BookingController {
     private final BookingService bookingService;
     @PostMapping("/{clientId}")
     public ResponseEntity<APIResponse<Null>> createBooking(@PathVariable Long clientId, @RequestBody BookingDto booking) {
-
         bookingService.createBooking(booking);
         return ResponseEntity.ok(new APIResponse<>(ResponseCode.SUCCESS));
     }
@@ -32,13 +31,12 @@ public class BookingController {
                                                           @RequestParam("status") BookingStatus status,
                                                           @RequestBody String providerNotes) {
         BookingDto bookingDto = bookingService.approveOrRejectBooking(bookingId, status, providerNotes);
-
         return ResponseEntity.ok(new APIResponse<>(ResponseCode.SUCCESS,bookingDto));
     }
 
     @GetMapping("/clients/{clientId}")
     public ResponseEntity<APIResponse<List<BookingDto>>> getClientBookings(@PathVariable Long clientId) {
-
         return ResponseEntity.ok(new APIResponse<>(ResponseCode.SUCCESS,bookingService.getBookingsByClientId(clientId)));
     }
+
 }

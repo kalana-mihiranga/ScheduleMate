@@ -10,10 +10,14 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 public class EmailDto {
+
     @JsonProperty("email")
     private String email;
+
     @JsonProperty("subject")
     private String subject;
+
     @JsonProperty("content")
     private String content;
+
 }

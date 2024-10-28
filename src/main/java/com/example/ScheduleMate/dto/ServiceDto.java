@@ -47,4 +47,5 @@ public class ServiceDto {
 
     @JsonProperty("imageUrl")
     private String imageUrl;
+
 }

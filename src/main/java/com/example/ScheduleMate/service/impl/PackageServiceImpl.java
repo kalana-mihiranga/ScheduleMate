@@ -1,4 +1,4 @@
-package com.example.ScheduleMate.service.impl;
+package com.example.ScheduleMate.service.Impl;
 
 import com.example.ScheduleMate.dto.PackageDto;
 import com.example.ScheduleMate.entity.Packages;
@@ -18,8 +18,8 @@ public class PackageServiceImpl implements PackageService {
 
     @Override
     public void createPackage(PackageDto packages) {
-        Packages packageEntity = objectMapper.convertValue(packages, Packages.class);
-        packagesRepository.save(packageEntity);
+        Packages packagesEntity = objectMapper.convertValue(packages, Packages.class);
+        packagesRepository.save(packagesEntity);
 
     }
 }

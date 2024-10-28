@@ -20,9 +20,7 @@ public class PackageController {
 
     @PostMapping("/create")
     public ResponseEntity<APIResponse<Null>> createEvent(@RequestBody PackageDto packages) {
-
         packageService.createPackage(packages);
-
         return ResponseEntity.ok(new APIResponse<>(ResponseCode.SUCCESS));
     }
 }

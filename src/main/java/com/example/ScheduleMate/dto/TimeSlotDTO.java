@@ -24,5 +24,4 @@ public class TimeSlotDTO {
     @JsonProperty("availableSeats")
     private int availableSeats;
 
-
 }

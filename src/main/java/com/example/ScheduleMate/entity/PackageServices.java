@@ -25,6 +25,4 @@ public class PackageServices {
     @JoinColumn(name = "service_id")
     private Services services;
 
-
-
 }

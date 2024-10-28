@@ -33,7 +33,6 @@ public class Feedback extends BaseEntity {
     @JoinColumn(name = "booking_id")
     private Booking booking;
 
-
     @Column(name = "rating")
     private int rating; // Assuming rating is an integer from 1-5
 

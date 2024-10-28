@@ -13,6 +13,7 @@ public class EmailResponseDto {
 
     @JsonProperty("status")
     private boolean status;
+
     @JsonProperty("message")
     private String message;
 
