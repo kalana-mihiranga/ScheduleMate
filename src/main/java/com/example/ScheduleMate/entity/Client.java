@@ -17,8 +17,8 @@ public class Client extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "name")
-    private String name;
+    @Column(name = "businessName")
+    private String businessName;
 
     @Column(name = "firstName")
     private String firstName;
@@ -32,17 +32,11 @@ public class Client extends BaseEntity {
     @Column(name = "phoneNumber")
     private String phoneNumber;
 
-    @Column(name = "dateOfBirth")
-    private Date dateOfBirth;
+    @Column(name = "password")
+    private String password;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "role")
     private Role role;
-
-    @Column(name = "password")
-    private String password;
-
-    @Column(name = "homeAddress")
-    private String homeAddress;
 
 }

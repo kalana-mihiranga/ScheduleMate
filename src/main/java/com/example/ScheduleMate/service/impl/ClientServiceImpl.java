@@ -26,18 +26,17 @@ import java.util.stream.Collectors;
 public class ClientServiceImpl implements ClientService {
     private final ClientRepository clientRepository;
     private final EmailInterface emailInterface;
-//    private final PasswordUtil passwordUtil;
 
     @Override
     public void createClient(ClientDto client) {
 
         Optional<Client> res = Optional.ofNullable(clientRepository.findByEmail(client.getEmail()));
 
-
         if (res.isPresent()) {
             throw new CommonException(ResponseCode.DUPLICATE);
         } else  {
             Client clientEntity = ClientDtoUtils.CLIENT_DTO_CLIENT_FUNCTION.apply(client);
+
             if(client.getRole().equals(String.valueOf(Role.CLIENT))) {
                 clientEntity.setRole(Role.CLIENT);
             }else if(client.getRole().equals(String.valueOf(Role.BUSINESS))) {
@@ -49,9 +48,7 @@ public class ClientServiceImpl implements ClientService {
 
             clientRepository.save(clientEntity);
             EmailDto emailDto = new EmailDto();
-//            emailDto.setEmail("kalanamihiranga97@gmail.com");
-            emailDto.setEmail("mdsmabeyrathne@gmail.com");
-           // emailDto.setEmail("akmuthumala@gmail.com");
+            emailDto.setEmail(client.getEmail());
             emailDto.setSubject("\uD83D\uDC8D Congratulations on Your Wedding Day! \uD83C\uDF89\n" +
                     "\n");
             emailDto.setContent("WOW! Can you believe it? The BIG DAY is here!! \uD83D\uDE0D\uD83D\uDC8D\n" +
@@ -74,35 +71,28 @@ public class ClientServiceImpl implements ClientService {
     public boolean authenticateClient(UserDto userDto) {
         Optional<Client> clientByEmail = Optional.ofNullable(clientRepository.findByEmail(userDto.getUserName()));
 
-
         if (clientByEmail.isPresent()) {
-            // Verify the plain password against the hashed password in the database
             return PasswordUtil.verifyPassword(userDto.getPassword(), clientByEmail.get().getPassword());
         }
 
         return false;
-
     }
 
     @Override
     public ClientDto findClientByPhoneNumber(String phoneNumber) {
-
         Optional<Client> clientByPhoneNumber = Optional.ofNullable(clientRepository.findByPhoneNumber(phoneNumber));
 
         if(clientByPhoneNumber.isPresent()){
             return ClientDtoUtils.CLIENT_CLIENT_DTO_FUNCTION.
                     apply(clientByPhoneNumber.get());
-
         }else {
             throw new CommonException(ResponseCode.NOT_FOUND);
         }
-
     }
 
     @Override
     public List<ClientDto> getAllClients() {
         return  clientRepository.findAll().
                 stream().map(e->ClientDtoUtils.CLIENT_CLIENT_DTO_FUNCTION.apply(e)).collect(Collectors.toList());
-
     }
 }

@@ -15,8 +15,8 @@ public class ClientDto {
     @JsonProperty("id")
     private Long id;
 
-    @JsonProperty("name")
-    private String name;
+    @JsonProperty("businessName")
+    private String businessName;
 
     @JsonProperty("firstName")
     private String firstName;
@@ -29,12 +29,6 @@ public class ClientDto {
 
     @JsonProperty("phoneNumber")
     private String phoneNumber;
-
-    @JsonProperty("dateOfBirth")
-    private Date dateOfBirth;
-
-    @JsonProperty("homeAddress")
-    private String homeAddress;
 
     @JsonProperty("role")
     private String role;
