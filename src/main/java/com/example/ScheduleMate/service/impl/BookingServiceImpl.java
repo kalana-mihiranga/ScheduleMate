@@ -14,6 +14,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -38,21 +39,33 @@ public class BookingServiceImpl implements BookingService {
             throw new CommonException(ResponseCode.RESOURCE_NOT_FOUND);
         } else {
 
-            Booking bookingInstance = new Booking();
+            System.out.println( serviceResult.get().getServiceFrom().isBefore(booking.getStartingTime()) || serviceResult.get().getServiceFrom().equals(booking.getStartingTime()));
+            System.out.println( booking.getStartingTime().plusMinutes(packageResult.get().getDuration()).isBefore(serviceResult.get().getServiceTo()) || booking.getStartingTime().plusMinutes(packageResult.get().getDuration()).equals(serviceResult.get().getServiceTo()) );
+            if ( ( serviceResult.get().getServiceFrom().isBefore(booking.getStartingTime()) || serviceResult.get().getServiceFrom().equals(booking.getStartingTime())) && ( booking.getStartingTime().plusMinutes(packageResult.get().getDuration()).isBefore(serviceResult.get().getServiceTo()) || booking.getStartingTime().plusMinutes(packageResult.get().getDuration()).equals(serviceResult.get().getServiceTo()) ) ) {
 
-            //checking pending overlap times
+                List<Booking> bookingResult = bookingRepository.findByStartingTime(booking.getStartingTime());
 
-            bookingInstance.setClientNote(booking.getClientNote());
-            bookingInstance.setBusinessNote(booking.getBusinessNote());
-            bookingInstance.setIsPaid(booking.getIsPaid());
-            bookingInstance.setStartingTime(booking.getStartingTime());
-            bookingInstance.setBookingDate(booking.getBookingDate());
-            bookingInstance.setStatus(BookingStatus.INCOMING);
-            bookingInstance.setServices(serviceResult.get());
-            bookingInstance.setPackages(packageResult.get());
-            bookingInstance.setClient(clientResult.get());
+                if (bookingResult.isEmpty()) {
+                    Booking bookingInstance = new Booking();
 
-            bookingRepository.save(bookingInstance);
+                    bookingInstance.setClientNote(booking.getClientNote());
+                    bookingInstance.setBusinessNote(booking.getBusinessNote());
+                    bookingInstance.setIsPaid(booking.getIsPaid());
+                    bookingInstance.setStartingTime(booking.getStartingTime());
+                    bookingInstance.setBookingDate(booking.getBookingDate());
+                    bookingInstance.setStatus(BookingStatus.INCOMING);
+                    bookingInstance.setServices(serviceResult.get());
+                    bookingInstance.setPackages(packageResult.get());
+                    bookingInstance.setClient(clientResult.get());
+
+                    bookingRepository.save(bookingInstance);
+                } else {
+                    throw new CommonException(ResponseCode.BOOKING_TIME_OVERLAP);
+                }
+
+            } else {
+                throw new CommonException(ResponseCode.NOT_SERVICE_TIME);
+            }
 
         }
 
