@@ -2,6 +2,8 @@ package com.example.ScheduleMate.service.Impl;
 
 import com.example.ScheduleMate.config.exception.CommonException;
 import com.example.ScheduleMate.dto.ServiceDto;
+import com.example.ScheduleMate.dto.ServiceListDto;
+import com.example.ScheduleMate.dto.ServicePackageDto;
 import com.example.ScheduleMate.entity.Client;
 import com.example.ScheduleMate.entity.Packages;
 import com.example.ScheduleMate.entity.Services;
@@ -18,6 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -25,19 +28,20 @@ public class ServicesServiceImpl implements ServiceService {
     private final ServicesRepository servicesRepository;
     private final ClientRepository clientRepository;
     private final PackagesRepository packagesRepository;
+    private final ObjectMapper objectMapper;
 
     @Override
     @Transactional
     public void createService(ServiceDto serviceDto) {
 
-        Optional<Client> res = Optional.of(clientRepository.getById(serviceDto.getBusinessId()));
+        Optional<Client> existingService = Optional.of(clientRepository.getById(serviceDto.getBusinessId()));
 
-        if (res.isPresent()) {
+        if (existingService.isPresent()) {
 
             List<Packages> existingPackages = new ArrayList<>();
             Services serviceInstance = new Services();
 
-            serviceInstance.setClient(res.get());
+            serviceInstance.setClient(existingService.get());
             serviceInstance.setName(serviceDto.getName());
             serviceInstance.setDiscountRate(serviceDto.getDiscountRate());
             serviceInstance.setDescription(serviceDto.getDescription());
@@ -60,6 +64,46 @@ public class ServicesServiceImpl implements ServiceService {
         } else {
             throw new CommonException(ResponseCode.RESOURCE_NOT_FOUND);
         }
+
+    }
+
+    @Override
+    public List<ServiceListDto> getServiceListView() {
+        return
+                servicesRepository.findAll().stream()
+                        .map(e ->
+                             new ServiceListDto(e.getId(),e.getName(),e.getDescription(),e.getImageUrl())).collect(Collectors.toList());
+
+
+    }
+
+    @Override
+    public ServiceDto getServiceById(Long id) {
+        Optional<Services> serviceById= servicesRepository.findById(id);
+        if(serviceById.isPresent()){
+            ServiceDto serviceDto = new ServiceDto();
+            serviceDto.setId(serviceById.get().getId());
+            serviceDto.setName(serviceById.get().getName());
+            serviceDto.setDiscountRate(serviceById.get().getDiscountRate());
+            serviceDto.setDescription(serviceById.get().getDescription());
+
+            serviceDto.setBusinessId(serviceById.get().getClient().getId());
+            serviceDto.setConditions(serviceById.get().getConditions());
+            serviceDto.setServiceFrom(serviceById.get().getServiceFrom());
+            serviceDto.setServiceTo(serviceById.get().getServiceTo());
+            serviceDto.setAvailability(serviceById.get().getAvailability());
+            serviceDto.setPackageList(serviceById.get().getPackages().stream()
+                    .map(e->new ServicePackageDto(e.getId(),e.getName())).collect(Collectors.toList()));
+            serviceDto.setImageUrl(serviceById.get().getImageUrl());
+
+
+
+            return serviceDto;
+
+        }else {
+            throw  new CommonException(ResponseCode.NOT_FOUND);
+        }
+
 
     }
 }
