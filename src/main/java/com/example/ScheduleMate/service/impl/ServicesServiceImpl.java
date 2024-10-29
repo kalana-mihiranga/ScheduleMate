@@ -5,9 +5,11 @@ import com.example.ScheduleMate.dto.ServiceDto;
 import com.example.ScheduleMate.dto.ServiceListDto;
 import com.example.ScheduleMate.dto.ServicePackageDto;
 import com.example.ScheduleMate.entity.Client;
+import com.example.ScheduleMate.entity.Feedback;
 import com.example.ScheduleMate.entity.Packages;
 import com.example.ScheduleMate.entity.Services;
 import com.example.ScheduleMate.repository.ClientRepository;
+import com.example.ScheduleMate.repository.FeedbackRepository;
 import com.example.ScheduleMate.repository.PackagesRepository;
 import com.example.ScheduleMate.repository.ServicesRepository;
 import com.example.ScheduleMate.service.ServiceService;
@@ -28,6 +30,7 @@ public class ServicesServiceImpl implements ServiceService {
     private final ServicesRepository servicesRepository;
     private final ClientRepository clientRepository;
     private final PackagesRepository packagesRepository;
+    private final FeedbackRepository feedbackRepository;
     private final ObjectMapper objectMapper;
 
     @Override
@@ -69,12 +72,26 @@ public class ServicesServiceImpl implements ServiceService {
 
     @Override
     public List<ServiceListDto> getServiceListView() {
-        return
-                servicesRepository.findAll().stream()
-                        .map(e ->
-                             new ServiceListDto(e.getId(),e.getName(),e.getDescription(),e.getImageUrl())).collect(Collectors.toList());
 
+        List<Services> servicesList = servicesRepository.findAll().stream().toList();
 
+        List<ServiceListDto> serviceListDtos = new ArrayList<>();
+
+        for(Services service:servicesList){
+            ServiceListDto serviceListDto = new ServiceListDto();
+            Client client = service.getClient();
+            Integer rating = feedbackRepository.findByBusiness(client).getRating();
+            serviceListDto.setRating(rating);
+            serviceListDto.setId(service.getId());
+            serviceListDto.setName(service.getName());
+            serviceListDto.setDescription(service.getDescription());
+            serviceListDto.setImageUrl(service.getImageUrl());
+
+            serviceListDtos.add(serviceListDto);
+
+        }
+
+        return  serviceListDtos;
     }
 
     @Override
