@@ -33,9 +33,7 @@ public class FeedbackServiceImpl implements FeedbackService {
         Optional<Client> clientResult = Optional.of(clientRepository.getById(feedbackDto.getClientId()));
         Optional<Client> businessResult = Optional.of(clientRepository.getById(feedbackDto.getBusinessId()));
 
-        if (!clientResult.isPresent() || !businessResult.isPresent()) {
-            throw new CommonException(ResponseCode.RESOURCE_NOT_FOUND);
-        } else {
+        if (clientResult.isPresent() && businessResult.isPresent()) {
             Feedback feedback = new Feedback();
 
             feedback.setComment(feedback.getComment());
@@ -44,6 +42,9 @@ public class FeedbackServiceImpl implements FeedbackService {
             feedback.setClient(clientResult.get());
 
             feedbackRepository.save(feedback);
+
+        } else {
+            throw new CommonException(ResponseCode.RESOURCE_NOT_FOUND);
         }
 
     }
