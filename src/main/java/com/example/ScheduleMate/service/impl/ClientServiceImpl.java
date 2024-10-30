@@ -1,4 +1,4 @@
-package com.example.ScheduleMate.service.Impl;
+package com.example.ScheduleMate.service.impl;
 
 import com.example.ScheduleMate.config.exception.CommonException;
 import com.example.ScheduleMate.dto.EmailDto;
@@ -43,7 +43,7 @@ public class ClientServiceImpl implements ClientService {
                 clientEntity.setRole(Role.BUSINESS);
             }
 
-            String hashedPassword = PasswordUtil.hashPassword(client.getPassword());
+            String hashedPassword = com.example.ScheduleMate.service.Impl.PasswordUtil.hashPassword(client.getPassword());
             clientEntity.setPassword(hashedPassword);
 
             clientRepository.save(clientEntity);
@@ -72,7 +72,7 @@ public class ClientServiceImpl implements ClientService {
         Optional<Client> clientByEmail = Optional.ofNullable(clientRepository.findByEmail(userDto.getUserName()));
 
         if (clientByEmail.isPresent()) {
-            return PasswordUtil.verifyPassword(userDto.getPassword(), clientByEmail.get().getPassword());
+            return com.example.ScheduleMate.service.Impl.PasswordUtil.verifyPassword(userDto.getPassword(), clientByEmail.get().getPassword());
         }
 
         return false;

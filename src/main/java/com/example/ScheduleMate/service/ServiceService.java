@@ -10,4 +10,6 @@ public interface ServiceService {
    List<ServiceListDto> getServiceListView();
 
    ServiceDto getServiceById(Long id);
+
+   List<ServiceDto> getServiceByBusinessId(Long id);
 }

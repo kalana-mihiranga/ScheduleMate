@@ -1,4 +1,4 @@
-package com.example.ScheduleMate.service.Impl;
+package com.example.ScheduleMate.service.impl;
 
 import com.example.ScheduleMate.config.exception.CommonException;
 import com.example.ScheduleMate.dto.ServiceDto;
@@ -14,6 +14,7 @@ import com.example.ScheduleMate.repository.PackagesRepository;
 import com.example.ScheduleMate.repository.ServicesRepository;
 import com.example.ScheduleMate.service.ServiceService;
 import com.example.ScheduleMate.utils.ResponseCode;
+import com.example.ScheduleMate.utils.converters.ServiceDtoUtils;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -23,6 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 @RequiredArgsConstructor
@@ -119,6 +121,19 @@ public class ServicesServiceImpl implements ServiceService {
 
         }else {
             throw  new CommonException(ResponseCode.NOT_FOUND);
+        }
+
+
+    }
+
+    @Override
+    public List<ServiceDto> getServiceByBusinessId(Long id) {
+        Optional<Client> client = clientRepository.findById(id);
+        if(client.isPresent()){
+         return servicesRepository.findAllByClient(client.get()).stream().
+                 map(e -> ServiceDtoUtils.SERVICES_SERVICE_DTO_FUNCTION.apply(e)).collect(Collectors.toList());
+        }else {
+            throw new CommonException(ResponseCode.NOT_FOUND);
         }
 
 
