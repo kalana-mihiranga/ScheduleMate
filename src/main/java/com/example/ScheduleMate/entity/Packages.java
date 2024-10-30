@@ -1,6 +1,8 @@
 package com.example.ScheduleMate.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -35,6 +37,7 @@ public class Packages {
     @ManyToMany(mappedBy = "packages")
     private List<Services> services;
 
+    @JsonBackReference
     @ManyToOne(cascade = {CascadeType.ALL})
     @JoinColumn(name = "client_id")
     private Client client;

@@ -1,6 +1,7 @@
 package com.example.ScheduleMate.service.Impl;
 
 import com.example.ScheduleMate.config.exception.CommonException;
+import com.example.ScheduleMate.dto.BusinessPackageResponse;
 import com.example.ScheduleMate.dto.PackageDto;
 import com.example.ScheduleMate.entity.Client;
 import com.example.ScheduleMate.entity.Packages;
@@ -12,6 +13,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 
@@ -42,5 +44,21 @@ public class PackageServiceImpl implements PackageService {
             throw new CommonException(ResponseCode.RESOURCE_NOT_FOUND);
         }
 
+    }
+
+    @Override
+    public List<Packages> getBusinessPackages(Long id) {
+
+        Optional<Client> clientResult = Optional.of(clientRepository.getById(id));
+
+        if (clientResult.isPresent()) {
+
+            List<Packages> result = packagesRepository.getAllByClient(clientResult.get());
+            System.out.println(result.size());
+            return result;
+
+        } else {
+            return null;
+        }
     }
 }

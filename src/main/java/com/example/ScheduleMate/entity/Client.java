@@ -1,6 +1,9 @@
 package com.example.ScheduleMate.entity;
 
 import com.example.ScheduleMate.meta.BaseEntity;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -40,6 +43,7 @@ public class Client extends BaseEntity {
     @Column(name = "role")
     private Role role;
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "client", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Packages> packages;
 
