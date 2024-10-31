@@ -1,7 +1,6 @@
-package com.example.ScheduleMate.service.Impl;
+package com.example.ScheduleMate.service.impl;
 
 import com.example.ScheduleMate.config.exception.CommonException;
-import com.example.ScheduleMate.dto.BusinessPackageResponse;
 import com.example.ScheduleMate.dto.PackageDto;
 import com.example.ScheduleMate.entity.Client;
 import com.example.ScheduleMate.entity.Packages;
