@@ -35,6 +35,10 @@ public class Packages {
     private BigDecimal price;
 
     @JsonIgnore
+    @Column(name = "status")
+    private Boolean status;
+
+    @JsonIgnore
     @ManyToMany(mappedBy = "packages")
     private List<Services> services;
 
