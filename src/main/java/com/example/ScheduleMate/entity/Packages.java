@@ -34,6 +34,7 @@ public class Packages {
     @Column(name = "price")
     private BigDecimal price;
 
+    @JsonIgnore
     @Column(name = "status")
     private Boolean status;
 
