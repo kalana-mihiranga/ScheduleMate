@@ -27,10 +27,9 @@ public class PackageController {
     }
 
     @GetMapping("/get/{id}")
-    public ResponseEntity<APIResponse< List<Packages> >> getPackages(@PathVariable Long id) {
-        List<Packages> businessPackages = packageService.getBusinessPackages(id);
+    public ResponseEntity<APIResponse< List<PackageDto> >> getPackages(@PathVariable Long id) {
 
-        return ResponseEntity.ok(new APIResponse<>(ResponseCode.SUCCESS, businessPackages));
+        return ResponseEntity.ok(new APIResponse<>(ResponseCode.SUCCESS, packageService.getBusinessPackages(id)));
     }
 
     @GetMapping("/getAll")
