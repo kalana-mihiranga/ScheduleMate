@@ -6,7 +6,10 @@ import com.example.ScheduleMate.entity.Packages;
 
 import java.util.List;
 
+import java.util.List;
+
 public interface PackageService {
     void createPackage(PackageDto packages);
     List<Packages> getBusinessPackages(Long id);
+    List<PackageDto> getAllPackages();
 }

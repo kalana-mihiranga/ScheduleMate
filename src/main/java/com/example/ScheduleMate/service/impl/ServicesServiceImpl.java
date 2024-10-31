@@ -1,17 +1,20 @@
-package com.example.ScheduleMate.service.Impl;
+package com.example.ScheduleMate.service.impl;
 
 import com.example.ScheduleMate.config.exception.CommonException;
 import com.example.ScheduleMate.dto.ServiceDto;
 import com.example.ScheduleMate.dto.ServiceListDto;
 import com.example.ScheduleMate.dto.ServicePackageDto;
 import com.example.ScheduleMate.entity.Client;
+import com.example.ScheduleMate.entity.Feedback;
 import com.example.ScheduleMate.entity.Packages;
 import com.example.ScheduleMate.entity.Services;
 import com.example.ScheduleMate.repository.ClientRepository;
+import com.example.ScheduleMate.repository.FeedbackRepository;
 import com.example.ScheduleMate.repository.PackagesRepository;
 import com.example.ScheduleMate.repository.ServicesRepository;
 import com.example.ScheduleMate.service.ServiceService;
 import com.example.ScheduleMate.utils.ResponseCode;
+import com.example.ScheduleMate.utils.converters.ServiceDtoUtils;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -21,6 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 @RequiredArgsConstructor
@@ -28,6 +32,7 @@ public class ServicesServiceImpl implements ServiceService {
     private final ServicesRepository servicesRepository;
     private final ClientRepository clientRepository;
     private final PackagesRepository packagesRepository;
+    private final FeedbackRepository feedbackRepository;
     private final ObjectMapper objectMapper;
 
     @Override
@@ -69,12 +74,26 @@ public class ServicesServiceImpl implements ServiceService {
 
     @Override
     public List<ServiceListDto> getServiceListView() {
-        return
-                servicesRepository.findAll().stream()
-                        .map(e ->
-                             new ServiceListDto(e.getId(),e.getName(),e.getDescription(),e.getImageUrl())).collect(Collectors.toList());
 
+        List<Services> servicesList = servicesRepository.findAll().stream().toList();
 
+        List<ServiceListDto> serviceListDtos = new ArrayList<>();
+
+        for(Services service:servicesList){
+            ServiceListDto serviceListDto = new ServiceListDto();
+            Client client = service.getClient();
+            Integer rating = feedbackRepository.findByBusiness(client).getRating();
+            serviceListDto.setRating(rating);
+            serviceListDto.setId(service.getId());
+            serviceListDto.setName(service.getName());
+            serviceListDto.setDescription(service.getDescription());
+            serviceListDto.setImageUrl(service.getImageUrl());
+
+            serviceListDtos.add(serviceListDto);
+
+        }
+
+        return  serviceListDtos;
     }
 
     @Override
@@ -102,6 +121,19 @@ public class ServicesServiceImpl implements ServiceService {
 
         }else {
             throw  new CommonException(ResponseCode.NOT_FOUND);
+        }
+
+
+    }
+
+    @Override
+    public List<ServiceDto> getServiceByBusinessId(Long id) {
+        Optional<Client> client = clientRepository.findById(id);
+        if(client.isPresent()){
+         return servicesRepository.findAllByClient(client.get()).stream().
+                 map(e -> ServiceDtoUtils.SERVICES_SERVICE_DTO_FUNCTION.apply(e)).collect(Collectors.toList());
+        }else {
+            throw new CommonException(ResponseCode.NOT_FOUND);
         }
 
 

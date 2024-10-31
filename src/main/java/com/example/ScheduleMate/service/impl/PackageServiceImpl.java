@@ -9,12 +9,14 @@ import com.example.ScheduleMate.repository.ClientRepository;
 import com.example.ScheduleMate.repository.PackagesRepository;
 import com.example.ScheduleMate.service.PackageService;
 import com.example.ScheduleMate.utils.ResponseCode;
+import com.example.ScheduleMate.utils.converters.PackageDtoUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -60,5 +62,11 @@ public class PackageServiceImpl implements PackageService {
         } else {
             return null;
         }
+    }
+    
+    public List<PackageDto> getAllPackages() {
+      return packagesRepository.findAll().stream().
+              map(e -> PackageDtoUtils.PACKAGES_PACKAGE_DTO_FUNCTION.apply(e)).collect(Collectors.toList());
+
     }
 }

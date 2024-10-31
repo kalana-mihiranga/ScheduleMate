@@ -33,4 +33,8 @@ public class PackageController {
         return ResponseEntity.ok(new APIResponse<>(ResponseCode.SUCCESS, businessPackages));
     }
 
+    @GetMapping("/getAll")
+    public ResponseEntity<APIResponse<List<PackageDto>>> getAllPackages() {
+        return ResponseEntity.ok(new APIResponse<>(ResponseCode.SUCCESS, packageService.getAllPackages()));
+    }
 }

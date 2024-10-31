@@ -18,8 +18,6 @@ public class ServiceListDto {
     private String description;
     @JsonProperty("imageUrl")
     private String imageUrl;
-
-
-//    @JsonProperty("rating")
-//    private Integer rating;
+    @JsonProperty("rating")
+    private Integer rating;
 }
