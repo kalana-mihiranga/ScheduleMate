@@ -17,6 +17,8 @@ import com.example.ScheduleMate.utils.ResponseCode;
 import com.example.ScheduleMate.utils.converters.ServiceDtoUtils;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,6 +27,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+
+import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
 
 @Service
 @RequiredArgsConstructor
@@ -138,4 +142,16 @@ public class ServicesServiceImpl implements ServiceService {
 
 
     }
+
+
+
+    @Override
+    public Page<ServiceDto> getServiceListByBusinessId(Long id, Pageable pageable) {
+        Optional<Client> client = clientRepository.findById(id);
+        if (client.isPresent()) {
+            return servicesRepository.findAllByClient(client.get(), pageable)
+                    .map(ServiceDtoUtils.SERVICES_SERVICE_DTO_FUNCTION::apply);
+        } else {
+            throw new CommonException(ResponseCode.NOT_FOUND);
+        }}
 }
