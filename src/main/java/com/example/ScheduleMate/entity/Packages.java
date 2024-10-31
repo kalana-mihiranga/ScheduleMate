@@ -34,14 +34,19 @@ public class Packages {
     @Column(name = "price")
     private BigDecimal price;
 
+    @Column(name = "status")
+    private Boolean status;
+
+    @JsonIgnore
     @ManyToMany(mappedBy = "packages")
     private List<Services> services;
 
-    @JsonBackReference
+    @JsonIgnore
     @ManyToOne(cascade = {CascadeType.ALL})
     @JoinColumn(name = "client_id")
     private Client client;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "packages", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Booking> booking;
 

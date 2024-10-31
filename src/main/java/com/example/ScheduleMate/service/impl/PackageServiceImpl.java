@@ -1,7 +1,6 @@
-package com.example.ScheduleMate.service.Impl;
+package com.example.ScheduleMate.service.impl;
 
 import com.example.ScheduleMate.config.exception.CommonException;
-import com.example.ScheduleMate.dto.BusinessPackageResponse;
 import com.example.ScheduleMate.dto.PackageDto;
 import com.example.ScheduleMate.entity.Client;
 import com.example.ScheduleMate.entity.Packages;
@@ -30,18 +29,21 @@ public class PackageServiceImpl implements PackageService {
     @Transactional
     public void createPackage(PackageDto packages) {
 
-        Optional<Client> res = Optional.of(clientRepository.getById(packages.getBusinessId()));
+        Optional<Client> client = Optional.of(clientRepository.getById(packages.getBusinessId()));
 
-        if (res.isPresent()) {
-            Packages packages1 = new Packages();
+        if (client.isPresent()) {
+            Packages packagesComponent = new Packages();
 
-            packages1.setName(packages.getName());
-            packages1.setPrice(packages.getPrice());
-            packages1.setDuration(packages.getDuration());
-            packages1.setMaximumCount(packages.getMaximumCount());
-            packages1.setClient(res.get());
+            packagesComponent.setName(packages.getName());
+            packagesComponent.setPrice(packages.getPrice());
+            packagesComponent.setDuration(packages.getDuration());
+            packagesComponent.setMaximumCount(packages.getMaximumCount());
+            packagesComponent.setStatus(Boolean.TRUE);
 
-            packagesRepository.save(packages1);
+
+            packagesComponent.setClient(client.get());
+
+            packagesRepository.save(packagesComponent);
         } else {
             throw new CommonException(ResponseCode.RESOURCE_NOT_FOUND);
         }
