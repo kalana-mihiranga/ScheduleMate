@@ -30,4 +30,7 @@ public class PackageDto {
     @JsonProperty("businessId")
     private Long businessId;
 
+    @JsonProperty("status")
+    private Boolean status;
+
 }

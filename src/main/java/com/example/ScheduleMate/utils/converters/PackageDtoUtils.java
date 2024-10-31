@@ -24,6 +24,7 @@ public class PackageDtoUtils {
         packageDto.setDuration(packages.getDuration());
         packageDto.setMaximumCount(packages.getMaximumCount());
         packageDto.setPrice(packages.getPrice());
+        packageDto.setStatus(packages.getStatus());
         return packageDto;
     };
 }
