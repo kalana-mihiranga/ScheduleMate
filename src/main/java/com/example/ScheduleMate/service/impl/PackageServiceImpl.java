@@ -10,6 +10,8 @@ import com.example.ScheduleMate.service.PackageService;
 import com.example.ScheduleMate.utils.ResponseCode;
 import com.example.ScheduleMate.utils.converters.PackageDtoUtils;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -71,4 +73,17 @@ public class PackageServiceImpl implements PackageService {
               map(e -> PackageDtoUtils.PACKAGES_PACKAGE_DTO_FUNCTION.apply(e)).collect(Collectors.toList());
 
     }
+
+    @Override
+    public Page<PackageDto> getPackageListByBusinessId(Long id, Pageable pageable) {
+
+        Optional<Client> clientResult = Optional.of(clientRepository.getById(id));
+
+        if (clientResult.isPresent()) {
+
+            return   packagesRepository.findAllByClient(clientResult.get(),pageable).map(e->PackageDtoUtils.PACKAGES_PACKAGE_DTO_FUNCTION.apply(e));
+    }else {
+            throw new CommonException(ResponseCode.NOT_FOUND);
+
+        }}
 }
