@@ -4,8 +4,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.joda.time.DateTime;
 
 import java.math.BigDecimal;
+import java.util.Date;
 
 @Data
 @NoArgsConstructor
@@ -32,5 +34,8 @@ public class PackageDto {
 
     @JsonProperty("status")
     private Boolean status;
+
+    @JsonProperty("createdTime")
+    private Date createdTime;
 
 }

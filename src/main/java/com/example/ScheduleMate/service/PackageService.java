@@ -10,6 +10,6 @@ import java.util.List;
 
 public interface PackageService {
     void createPackage(PackageDto packages);
-    List<Packages> getBusinessPackages(Long id);
+    List<PackageDto> getBusinessPackages(Long id);
     List<PackageDto> getAllPackages();
 }

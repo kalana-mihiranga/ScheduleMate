@@ -51,15 +51,15 @@ public class PackageServiceImpl implements PackageService {
     }
 
     @Override
-    public List<Packages> getBusinessPackages(Long id) {
+    public List<PackageDto> getBusinessPackages(Long id) {
 
         Optional<Client> clientResult = Optional.of(clientRepository.getById(id));
 
         if (clientResult.isPresent()) {
 
-            List<Packages> result = packagesRepository.getAllByClient(clientResult.get());
-            System.out.println(result.size());
-            return result;
+          return   packagesRepository.getAllByClient(clientResult.get()).stream().map(e->PackageDtoUtils.PACKAGES_PACKAGE_DTO_FUNCTION.apply(e)).collect(Collectors.toList());
+
+
 
         } else {
             return null;

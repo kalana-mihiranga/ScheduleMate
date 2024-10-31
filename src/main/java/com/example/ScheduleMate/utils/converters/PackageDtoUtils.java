@@ -25,6 +25,7 @@ public class PackageDtoUtils {
         packageDto.setMaximumCount(packages.getMaximumCount());
         packageDto.setPrice(packages.getPrice());
         packageDto.setStatus(packages.getStatus());
+        packageDto.setCreatedTime(packages.getCreatedTimestamp());
         return packageDto;
     };
 }
