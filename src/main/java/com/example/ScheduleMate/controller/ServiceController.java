@@ -17,6 +17,7 @@ import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
 @RestController
 @RequestMapping("/services")
 @RequiredArgsConstructor
+@CrossOrigin("*")
 public class ServiceController {
     private final ServiceService serviceService;
 

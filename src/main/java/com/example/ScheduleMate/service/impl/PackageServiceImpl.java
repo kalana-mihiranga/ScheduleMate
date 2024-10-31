@@ -1,6 +1,7 @@
 package com.example.ScheduleMate.service.Impl;
 
 import com.example.ScheduleMate.config.exception.CommonException;
+import com.example.ScheduleMate.dto.BusinessPackageResponse;
 import com.example.ScheduleMate.dto.PackageDto;
 import com.example.ScheduleMate.entity.Client;
 import com.example.ScheduleMate.entity.Packages;
@@ -48,6 +49,21 @@ public class PackageServiceImpl implements PackageService {
     }
 
     @Override
+    public List<Packages> getBusinessPackages(Long id) {
+
+        Optional<Client> clientResult = Optional.of(clientRepository.getById(id));
+
+        if (clientResult.isPresent()) {
+
+            List<Packages> result = packagesRepository.getAllByClient(clientResult.get());
+            System.out.println(result.size());
+            return result;
+
+        } else {
+            return null;
+        }
+    }
+    
     public List<PackageDto> getAllPackages() {
       return packagesRepository.findAll().stream().
               map(e -> PackageDtoUtils.PACKAGES_PACKAGE_DTO_FUNCTION.apply(e)).collect(Collectors.toList());
