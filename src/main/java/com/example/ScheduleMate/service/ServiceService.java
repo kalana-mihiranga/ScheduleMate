@@ -16,4 +16,6 @@ public interface ServiceService {
    List<ServiceDto> getServiceByBusinessId(Long id);
 
     Page<ServiceDto> getServiceListByBusinessId(Long id, Pageable pageable);
+
+    List<ServiceDto>searchServicesByName(String name);
 }

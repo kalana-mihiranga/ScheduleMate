@@ -14,4 +14,6 @@ public interface ServicesRepository extends JpaRepository<Services, Long> {
 
     Page<Services> findAllByClient(Client client, Pageable pageable);
 
+    List<Services> findAllByNameContainingIgnoreCase(String name);
+
 }

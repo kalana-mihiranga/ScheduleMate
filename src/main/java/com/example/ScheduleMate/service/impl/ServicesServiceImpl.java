@@ -83,7 +83,7 @@ public class ServicesServiceImpl implements ServiceService {
 
         List<ServiceListDto> serviceListDtos = new ArrayList<>();
 
-        for(Services service:servicesList){
+        for (Services service : servicesList) {
             ServiceListDto serviceListDto = new ServiceListDto();
             Client client = service.getClient();
             Integer rating = feedbackRepository.findByBusiness(client).getRating();
@@ -97,13 +97,13 @@ public class ServicesServiceImpl implements ServiceService {
 
         }
 
-        return  serviceListDtos;
+        return serviceListDtos;
     }
 
     @Override
     public ServiceDto getServiceById(Long id) {
-        Optional<Services> serviceById= servicesRepository.findById(id);
-        if(serviceById.isPresent()){
+        Optional<Services> serviceById = servicesRepository.findById(id);
+        if (serviceById.isPresent()) {
             ServiceDto serviceDto = new ServiceDto();
             serviceDto.setId(serviceById.get().getId());
             serviceDto.setName(serviceById.get().getName());
@@ -117,14 +117,15 @@ public class ServicesServiceImpl implements ServiceService {
             serviceDto.setAvailability(serviceById.get().getAvailability());
             serviceDto.setPackageList(serviceById.get().getPackages().stream()
                     .map(e->new ServicePackageDto(e.getId(),e.getName(),e.getDuration(),e.getPrice())).collect(Collectors.toList()));
-            serviceDto.setImageUrl(serviceById.get().getImageUrl());
 
+
+            serviceDto.setImageUrl(serviceById.get().getImageUrl());
 
 
             return serviceDto;
 
-        }else {
-            throw  new CommonException(ResponseCode.NOT_FOUND);
+        } else {
+            throw new CommonException(ResponseCode.NOT_FOUND);
         }
 
 
@@ -133,16 +134,15 @@ public class ServicesServiceImpl implements ServiceService {
     @Override
     public List<ServiceDto> getServiceByBusinessId(Long id) {
         Optional<Client> client = clientRepository.findById(id);
-        if(client.isPresent()){
-         return servicesRepository.findAllByClient(client.get()).stream().
-                 map(e -> ServiceDtoUtils.SERVICES_SERVICE_DTO_FUNCTION.apply(e)).collect(Collectors.toList());
-        }else {
+        if (client.isPresent()) {
+            return servicesRepository.findAllByClient(client.get()).stream().
+                    map(e -> ServiceDtoUtils.SERVICES_SERVICE_DTO_FUNCTION.apply(e)).collect(Collectors.toList());
+        } else {
             throw new CommonException(ResponseCode.NOT_FOUND);
         }
 
 
     }
-
 
 
     @Override
@@ -153,5 +153,20 @@ public class ServicesServiceImpl implements ServiceService {
                     .map(ServiceDtoUtils.SERVICES_SERVICE_DTO_FUNCTION::apply);
         } else {
             throw new CommonException(ResponseCode.NOT_FOUND);
-        }}
+        }
+    }
+
+    @Override
+    public List<ServiceDto> searchServicesByName(String name) {
+        if (name.equals(String.valueOf(""))) {
+            return servicesRepository.findAll().stream().map(e -> ServiceDtoUtils.SERVICES_SERVICE_DTO_FUNCTION.apply(e)).collect(Collectors.toList());
+
+        } else {
+
+            return servicesRepository.
+                    findAllByNameContainingIgnoreCase(name).stream().map(e -> ServiceDtoUtils.SERVICES_SERVICE_DTO_FUNCTION.apply(e)).collect(Collectors.toList());
+
+        }
+
+    }
 }
