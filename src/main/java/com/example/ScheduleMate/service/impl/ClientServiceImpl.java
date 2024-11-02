@@ -1,5 +1,7 @@
 package com.example.ScheduleMate.service.impl;
 
+import com.example.ScheduleMate.Notification.BookingNotificationEvent;
+import com.example.ScheduleMate.Notification.NotificationService;
 import com.example.ScheduleMate.config.exception.CommonException;
 import com.example.ScheduleMate.dto.EmailDto;
 import com.example.ScheduleMate.dto.UserDto;
@@ -13,6 +15,7 @@ import com.example.ScheduleMate.utils.ResponseCode;
 import com.example.ScheduleMate.utils.converters.ClientDtoUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -26,6 +29,7 @@ import java.util.stream.Collectors;
 public class ClientServiceImpl implements ClientService {
     private final ClientRepository clientRepository;
     private final EmailInterface emailInterface;
+    private final ApplicationEventPublisher eventPublisher;
 
     @Override
     public void createClient(ClientDto client) {
@@ -46,23 +50,16 @@ public class ClientServiceImpl implements ClientService {
             String hashedPassword = com.example.ScheduleMate.service.Impl.PasswordUtil.hashPassword(client.getPassword());
             clientEntity.setPassword(hashedPassword);
 
-            clientRepository.save(clientEntity);
-            EmailDto emailDto = new EmailDto();
-            emailDto.setEmail(client.getEmail());
-            emailDto.setSubject("\uD83D\uDC8D Congratulations on Your Wedding Day! \uD83C\uDF89\n" +
-                    "\n");
-            emailDto.setContent("WOW! Can you believe it? The BIG DAY is here!! \uD83D\uDE0D\uD83D\uDC8D\n" +
-                    "\n" +
-                    "From the moment you said \"YES,\" it's all been leading up to THIS! Today, you both embark on the most exciting, magical, and unforgettable journey together!! \uD83D\uDE80✨\n" +
-                    "\n" +
-                    "May your life be filled with LOVE, HAPPINESS, and countless SPECIAL MOMENTS! ❤\uFE0F\uD83C\uDF89\n" +
-                    "\n" +
-                    "\uD83D\uDC90✨ Here's to LOVE! ✨\uD83D\uDC90\n" +
-                    "\n" +
-                    "We just couldn't wait to send our BIGGEST and BEST WISHES for this amazing day!! Wishing you all the LOVE and JOY as you start this new adventure TOGETHER! ❤\uFE0F\uD83D\uDC70\uD83E\uDD35\n" +
-                    "\n" +
-                    "Best wishes for an AMAZING future ahead, filled with love, laughter, and lots of happy moments! \uD83D\uDE0D\uD83C\uDF89");
-            emailInterface.postMail(emailDto);
+            Client savedClient = clientRepository.save(clientEntity);
+
+            BookingNotificationEvent notificationEvent = new BookingNotificationEvent(
+                    savedClient.getId(),
+                    "email",
+                    "New client created with email: " + client.getEmail(),
+                    clientEntity.getRole().toString(),
+                    client.getEmail()
+            );
+            eventPublisher.publishEvent(notificationEvent);
         }
 
     }

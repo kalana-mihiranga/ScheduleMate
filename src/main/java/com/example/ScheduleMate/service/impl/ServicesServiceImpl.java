@@ -116,7 +116,9 @@ public class ServicesServiceImpl implements ServiceService {
             serviceDto.setServiceTo(serviceById.get().getServiceTo());
             serviceDto.setAvailability(serviceById.get().getAvailability());
             serviceDto.setPackageList(serviceById.get().getPackages().stream()
-                    .map(e -> new ServicePackageDto(e.getId(), e.getName())).collect(Collectors.toList()));
+                    .map(e->new ServicePackageDto(e.getId(),e.getName(),e.getDuration(),e.getPrice())).collect(Collectors.toList()));
+
+
             serviceDto.setImageUrl(serviceById.get().getImageUrl());
 
 
