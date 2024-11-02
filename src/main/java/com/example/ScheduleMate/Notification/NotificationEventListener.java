@@ -11,6 +11,6 @@ public class NotificationEventListener {
     private final NotificationService notificationService;
     @EventListener
     public void handleBookingNotificationEvent(BookingNotificationEvent event) {
-        notificationService.sendNotification(event.getNotificationType(), event.getMessage(), event.getRole(),event.getEmail());
+        notificationService.sendNotification(event.getClientId(),event.getNotificationType(), event.getMessage(), event.getRole(),event.getEmail());
     }
 }

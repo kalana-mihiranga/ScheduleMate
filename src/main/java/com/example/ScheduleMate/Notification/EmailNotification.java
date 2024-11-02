@@ -21,7 +21,7 @@ public class EmailNotification implements NotificationTask {
 
 
         EmailDto emailDto = new EmailDto();
-        emailDto.setEmail(email); // Set the recipient's email
+        emailDto.setEmail(email); //  recipient's email
         emailDto.setSubject("🎉 SheduleMate App Registration Successful! 🎉");
         emailDto.setContent(message);
 

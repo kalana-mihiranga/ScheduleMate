@@ -12,7 +12,7 @@ public class NotificationService {
     private final NotificationRepository notificationRepository;
     private final NotificationFactory notificationFactory;
 
-    public void sendNotification(String type, String message, String role, String email) {
+    public void sendNotification(Long clientId, String type, String message, String role, String email) {
         // Notify observers
         NotificationManager manager = NotificationManager.getInstance();
         manager.notifyObservers(message, role);
@@ -23,6 +23,7 @@ public class NotificationService {
 
         // Save to database
         Notification notificationEntity = new Notification();
+        notificationEntity.setClientId(clientId);
         notificationEntity.setMessage(message);
         notificationEntity.setRole(role);
         notificationEntity.setNotificationType(type);

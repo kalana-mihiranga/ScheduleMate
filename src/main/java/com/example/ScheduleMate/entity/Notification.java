@@ -30,6 +30,8 @@ public class Notification {
 
     @Column(name = "activeStatus")
     private Boolean activeStatus=true; // Default value set to true
+    @Column(name = "client_id")
+    private Long clientId;
 
 
 

@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
 import java.time.LocalTime;
 
 @Data
@@ -17,5 +18,13 @@ public class ServicePackageDto {
 
     @JsonProperty("packageName")
     private String PackageName;
+
+
+    @JsonProperty("duration")
+    private Integer duration;
+
+
+    @JsonProperty("price")
+    private BigDecimal price;
 
 }

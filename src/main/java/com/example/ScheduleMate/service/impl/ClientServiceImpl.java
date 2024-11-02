@@ -50,9 +50,10 @@ public class ClientServiceImpl implements ClientService {
             String hashedPassword = com.example.ScheduleMate.service.Impl.PasswordUtil.hashPassword(client.getPassword());
             clientEntity.setPassword(hashedPassword);
 
-            clientRepository.save(clientEntity);
+            Client savedClient = clientRepository.save(clientEntity);
 
             BookingNotificationEvent notificationEvent = new BookingNotificationEvent(
+                    savedClient.getId(),
                     "email",
                     "New client created with email: " + client.getEmail(),
                     clientEntity.getRole().toString(),

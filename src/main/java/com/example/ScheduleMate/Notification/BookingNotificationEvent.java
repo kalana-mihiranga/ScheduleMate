@@ -9,10 +9,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 
 public class BookingNotificationEvent {
-    private final String notificationType;
-    private final String message;
-    private final String role;
-    private final String email;
+    private  Long clientId;
+    private  String notificationType;
+    private  String message;
+    private  String role;
+    private  String email;
 
 
 }
