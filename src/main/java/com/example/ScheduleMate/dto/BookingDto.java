@@ -46,4 +46,10 @@ public class BookingDto {
     @JsonProperty("packageId")
     private Long packageId;
 
+    @JsonProperty("status")
+    private String status;
+
+    @JsonProperty("clientType")
+    private String clientType;
+
 }

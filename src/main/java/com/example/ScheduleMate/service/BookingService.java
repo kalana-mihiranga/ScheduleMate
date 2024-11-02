@@ -10,4 +10,15 @@ public interface BookingService {
     void createBooking(BookingDto bookingDto);
     BookingDto approveOrRejectBooking(Long bookingId, BookingStatus status, String providerNotes);
     List<BookingDto> getBookingsByClientId(Long clientId);
+
+    List<BookingDto>findBookingByClientView();
+    List<BookingDto>findBookingByClientViewANDINCOMING();
+    List<BookingDto>findBookingByClientViewANDCANCELLED();
+    List<BookingDto>findBookingByClientViewANDCOMPLETED();
+
+    List<BookingDto>findBookingByBusinessView();
+    List<BookingDto>findBookingByBusinessViewANDINCOMING();
+    List<BookingDto>findBookingByBusinessViewANDCANCELLED();
+    List<BookingDto>findBookingByBusinessViewANDCOMPLETED();
+
 }

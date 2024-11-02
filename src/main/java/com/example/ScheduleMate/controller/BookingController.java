@@ -40,4 +40,39 @@ public class BookingController {
         return ResponseEntity.ok(new APIResponse<>(ResponseCode.SUCCESS,bookingService.getBookingsByClientId(clientId)));
     }
 
+
+
+    @GetMapping("/clients")
+    public ResponseEntity<APIResponse<List<BookingDto>>> getAllClientBooking() {
+        return ResponseEntity.ok(new APIResponse<>(ResponseCode.SUCCESS,bookingService.findBookingByClientView()));
+    }
+    @GetMapping("/clients/incoming")
+    public ResponseEntity<APIResponse<List<BookingDto>>> geClienttBookingIncoming() {
+        return ResponseEntity.ok(new APIResponse<>(ResponseCode.SUCCESS,bookingService.findBookingByClientViewANDINCOMING()));
+    }
+    @GetMapping("/clients/cancelled")
+    public ResponseEntity<APIResponse<List<BookingDto>>> getClientBookingCancelled() {
+        return ResponseEntity.ok(new APIResponse<>(ResponseCode.SUCCESS,bookingService.findBookingByClientViewANDCANCELLED()));
+    }
+    @GetMapping("/clients/completed")
+    public ResponseEntity<APIResponse<List<BookingDto>>> getClientBookingCompleted() {
+        return ResponseEntity.ok(new APIResponse<>(ResponseCode.SUCCESS,bookingService.findBookingByClientViewANDCOMPLETED()));
+    }
+    @GetMapping("/business")
+    public ResponseEntity<APIResponse<List<BookingDto>>> getBusinessBookings() {
+        return ResponseEntity.ok(new APIResponse<>(ResponseCode.SUCCESS,bookingService.findBookingByBusinessView()));
+    }
+    @GetMapping("/business/incoming")
+    public ResponseEntity<APIResponse<List<BookingDto>>> getBusinessBokokingIncoming() {
+        return ResponseEntity.ok(new APIResponse<>(ResponseCode.SUCCESS,bookingService.findBookingByBusinessViewANDINCOMING()));
+    }
+    @GetMapping("/business/cancelled")
+    public ResponseEntity<APIResponse<List<BookingDto>>> getBusinessBookingCancelled() {
+        return ResponseEntity.ok(new APIResponse<>(ResponseCode.SUCCESS,bookingService.findBookingByBusinessViewANDCANCELLED()));
+    }
+    @GetMapping("/business/completed")
+    public ResponseEntity<APIResponse<List<BookingDto>>> getBusinessBookingCompleted() {
+        return ResponseEntity.ok(new APIResponse<>(ResponseCode.SUCCESS,bookingService.findBookingByBusinessViewANDCOMPLETED()));
+    }
+
 }
