@@ -12,13 +12,12 @@ public interface BookingService {
     List<BookingDto> getBookingsByClientId(Long clientId);
 
     List<BookingDto>findBookingByClientView();
-    List<BookingDto>findBookingByClientViewANDINCOMING();
-    List<BookingDto>findBookingByClientViewANDCANCELLED();
-    List<BookingDto>findBookingByClientViewANDCOMPLETED();
-
+    List<BookingDto>findBookingByClientViewANDINCOMING(Long clientId);
+    List<BookingDto>findBookingByClientViewANDCANCELLED(Long clientId);
+    List<BookingDto>findBookingByClientViewANDCOMPLETED(Long clientId);
     List<BookingDto>findBookingByBusinessView();
-    List<BookingDto>findBookingByBusinessViewANDINCOMING();
-    List<BookingDto>findBookingByBusinessViewANDCANCELLED();
-    List<BookingDto>findBookingByBusinessViewANDCOMPLETED();
+    List<BookingDto>findBookingByBusinessViewANDINCOMING(Long clientId);
+    List<BookingDto>findBookingByBusinessViewANDCANCELLED(Long clientId);
+    List<BookingDto>findBookingByBusinessViewANDCOMPLETED(Long clientId);
 
 }

@@ -1,4 +1,4 @@
-package com.example.ScheduleMate.service.Impl;
+package com.example.ScheduleMate.service.impl;
 
 import com.example.ScheduleMate.config.exception.CommonException;
 import com.example.ScheduleMate.dto.BookingDto;
@@ -73,13 +73,13 @@ public class BookingServiceImpl implements BookingService {
 
     @Override
     public BookingDto approveOrRejectBooking(Long bookingId, BookingStatus status, String providerNotes) {
-//        Booking booking = bookingRepository.findById(bookingId).orElseThrow(() -> new IllegalArgumentException("Invalid booking Id"));
-//        booking.setStatus(status);
-//        booking.setBusinessNote(providerNotes);
-//        bookingRepository.save(booking);
-//        BookingDto bookingResponse = BookingDtoUtils.BOOKING_TO_BOOKING_DTO_FUNCTION.apply(booking);
-//        return bookingResponse;
-        return null;
+        Booking booking = bookingRepository.findById(bookingId).orElseThrow(() -> new IllegalArgumentException("Invalid booking Id"));
+        booking.setStatus(status);
+        booking.setBusinessNote(providerNotes);
+        bookingRepository.save(booking);
+        BookingDto bookingResponse = BookingDtoUtils.BOOKING_TO_BOOKING_DTO_FUNCTION.apply(booking);
+        return bookingResponse;
+
     }
 
     @Override
@@ -97,22 +97,22 @@ public class BookingServiceImpl implements BookingService {
     }
 
     @Override
-    public List<BookingDto> findBookingByClientViewANDINCOMING() {
-        return bookingRepository.findAll().stream()
+    public List<BookingDto> findBookingByClientViewANDINCOMING(Long clientId) {
+        return bookingRepository.findByClientId(clientId).stream()
                 .filter(e->e.getClient().getRole().toString().equals("CLIENT")).filter(e->e.getStatus().toString().equals("INCOMING"))
                 .map(e->BookingDtoUtils.BOOKING_TO_BOOKING_DTO_FUNCTION.apply(e)).collect(Collectors.toList());
     }
 
     @Override
-    public List<BookingDto> findBookingByClientViewANDCANCELLED() {
-        return bookingRepository.findAll().stream()
+    public List<BookingDto> findBookingByClientViewANDCANCELLED(Long clientId) {
+        return bookingRepository.findByClientId(clientId).stream()
                 .filter(e->e.getClient().getRole().toString().equals("CLIENT")).filter(e->e.getStatus().toString().equals("CANCELLED"))
                 .map(e->BookingDtoUtils.BOOKING_TO_BOOKING_DTO_FUNCTION.apply(e)).collect(Collectors.toList());
     }
 
     @Override
-    public List<BookingDto> findBookingByClientViewANDCOMPLETED() {
-        return bookingRepository.findAll().stream()
+    public List<BookingDto> findBookingByClientViewANDCOMPLETED(Long clientId) {
+        return bookingRepository.findByClientId(clientId).stream()
                 .filter(e->e.getClient().getRole().toString().equals("CLIENT")).filter(e->e.getStatus().toString().equals("COMPLETED"))
                 .map(e->BookingDtoUtils.BOOKING_TO_BOOKING_DTO_FUNCTION.apply(e)).collect(Collectors.toList());
     }
@@ -125,22 +125,22 @@ public class BookingServiceImpl implements BookingService {
     }
 
     @Override
-    public List<BookingDto> findBookingByBusinessViewANDINCOMING() {
-        return bookingRepository.findAll().stream()
+    public List<BookingDto> findBookingByBusinessViewANDINCOMING(Long clientId) {
+        return bookingRepository.findByClientId(clientId).stream()
                 .filter(e->e.getClient().getRole().toString().equals("BUSINESS")).filter(e->e.getStatus().toString().equals("INCOMING"))
                 .map(e->BookingDtoUtils.BOOKING_TO_BOOKING_DTO_FUNCTION.apply(e)).collect(Collectors.toList());
     }
 
     @Override
-    public List<BookingDto> findBookingByBusinessViewANDCANCELLED() {
-        return bookingRepository.findAll().stream()
+    public List<BookingDto> findBookingByBusinessViewANDCANCELLED(Long clientId) {
+        return bookingRepository.findByClientId(clientId).stream()
                 .filter(e->e.getClient().getRole().toString().equals("BUSINESS")).filter(e->e.getStatus().toString().equals("CANCELLED"))
                 .map(e->BookingDtoUtils.BOOKING_TO_BOOKING_DTO_FUNCTION.apply(e)).collect(Collectors.toList());
     }
 
     @Override
-    public List<BookingDto> findBookingByBusinessViewANDCOMPLETED() {
-        return bookingRepository.findAll().stream()
+    public List<BookingDto> findBookingByBusinessViewANDCOMPLETED(Long clientId) {
+        return bookingRepository.findByClientId(clientId).stream()
                 .filter(e->e.getClient().getRole().toString().equals("BUSINESS")).filter(e->e.getStatus().toString().equals("COMPLETED"))
                 .map(e->BookingDtoUtils.BOOKING_TO_BOOKING_DTO_FUNCTION.apply(e)).collect(Collectors.toList());
     }
