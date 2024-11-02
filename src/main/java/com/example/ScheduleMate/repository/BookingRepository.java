@@ -11,6 +11,7 @@ import java.util.List;
 public interface BookingRepository extends JpaRepository<Booking, Long> {
     List<Booking> findByClientId(Long clientId);
 
+
     @Query("SELECT b FROM Booking b WHERE b.startingTime = :startingTime")
     List<Booking> findByStartingTime(@Param("startingTime") LocalTime startingTime);
 }
