@@ -17,11 +17,10 @@ import java.util.List;
 @CrossOrigin("*")
 public class FeedbackController {
     private final FeedbackService feedbackService;
+
     @PostMapping("/create")
     public ResponseEntity<APIResponse<Null>> addFeedback(@RequestBody FeedbackDto feedbackDto) {
-
         feedbackService.createFeedback(feedbackDto);
-
         return ResponseEntity.ok(new APIResponse<>(ResponseCode.SUCCESS));
     }
 

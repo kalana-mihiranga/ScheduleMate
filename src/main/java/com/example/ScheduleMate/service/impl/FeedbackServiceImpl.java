@@ -2,6 +2,7 @@ package com.example.ScheduleMate.service.impl;
 
 import com.example.ScheduleMate.configs.exception.CommonException;
 import com.example.ScheduleMate.dto.FeedbackDto;
+import com.example.ScheduleMate.entity.Client;
 import com.example.ScheduleMate.entity.Feedback;
 import com.example.ScheduleMate.repository.BookingRepository;
 import com.example.ScheduleMate.repository.ClientRepository;
@@ -12,6 +13,7 @@ import com.example.ScheduleMate.utils.ResponseCode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -26,27 +28,25 @@ public class FeedbackServiceImpl implements FeedbackService {
     private final ObjectMapper objectMapper;
 
     @Override
+    @Transactional
     public void createFeedback(FeedbackDto feedbackDto) {
 
-        Feedback feedbackEntity = objectMapper.convertValue(feedbackDto, Feedback.class);
+        Optional<Client> clientResult = Optional.of(clientRepository.getById(feedbackDto.getClientId()));
+        Optional<Client> businessResult = Optional.of(clientRepository.getById(feedbackDto.getBusinessId()));
 
+        if (clientResult.isPresent() && businessResult.isPresent()) {
+            Feedback feedback = new Feedback();
 
-        Optional<Long> service = Optional.ofNullable(feedbackDto.getServiceId());
-        Optional<Long> booking = Optional.ofNullable(feedbackDto.getBookingId());
-        Optional<Long> clients = Optional.ofNullable(feedbackDto.getClientId());
+            feedback.setComment(feedback.getComment());
+            feedback.setRating(feedback.getRating());
+            feedback.setBusiness(businessResult.get());
+            feedback.setClient(clientResult.get());
 
-        if(service.isPresent()&&booking.isPresent()&&clients.isPresent()){
-            feedbackEntity.setServices(servicesRepository.findById(feedbackDto.getServiceId()).get());
-            feedbackEntity.setBooking(bookingRepository.findById(feedbackDto.getBookingId()).get());
-            feedbackEntity.setClient(clientRepository.findById(feedbackDto.getClientId()).get());
+            feedbackRepository.save(feedback);
 
-        }else {
-            throw new CommonException(ResponseCode.NOT_FOUND);
+        } else {
+            throw new CommonException(ResponseCode.RESOURCE_NOT_FOUND);
         }
-
-
-        feedbackRepository.save(feedbackEntity);
-
 
     }
 

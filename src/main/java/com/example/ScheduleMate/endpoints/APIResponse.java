@@ -14,12 +14,16 @@ import java.util.Date;
 @NoArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class APIResponse<T> {
+
     @JsonProperty("timestamp")
     private Date timestamp;
+
     @JsonProperty("status")
     private int status;
+
     @JsonProperty("message")
     private String message;
+
     @JsonProperty("body")
     private T body;
 
@@ -33,5 +37,4 @@ public class APIResponse<T> {
         this(header);
         this.body = body;
     }
-
 }

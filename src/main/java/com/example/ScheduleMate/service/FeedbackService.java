@@ -5,7 +5,6 @@ import com.example.ScheduleMate.dto.FeedbackDto;
 import java.util.List;
 
 public interface FeedbackService {
-
     void createFeedback(FeedbackDto feedbackDto);
 
     List<FeedbackDto> getAllFeedbacks();

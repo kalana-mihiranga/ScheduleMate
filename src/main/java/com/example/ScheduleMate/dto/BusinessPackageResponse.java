@@ -1,6 +1,5 @@
 package com.example.ScheduleMate.dto;
 
-
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -9,12 +8,12 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class EmailResponseDto {
+public class BusinessPackageResponse {
 
-    @JsonProperty("status")
-    private boolean status;
+    @JsonProperty("id")
+    private Long id;
 
-    @JsonProperty("message")
-    private String message;
+    @JsonProperty("name")
+    private String name;
 
 }

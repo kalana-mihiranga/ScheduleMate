@@ -8,21 +8,16 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class FeedbackDto {
+public class ServiceListDto {
 
     @JsonProperty("id")
     private Long id;
-
-    @JsonProperty("clientId")
-    private Long clientId;
-
-    @JsonProperty("businessId")
-    private Long businessId;
-
+    @JsonProperty("name")
+    private String name;
+    @JsonProperty("description")
+    private String description;
+    @JsonProperty("imageUrl")
+    private String imageUrl;
     @JsonProperty("rating")
     private Integer rating;
-
-    @JsonProperty("comment")
-    private String comment;
-
 }
