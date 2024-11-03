@@ -1,0 +1,367 @@
+{
+	"info": {
+		"_postman_id": "2f4aa6e8-ffe0-4211-9501-83824fa38bac",
+		"name": "SheduleMAte",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "35016348"
+	},
+	"item": [
+		{
+			"name": "client",
+			"item": [
+				{
+					"name": "New Request",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8080/client/all/clients"
+					},
+					"response": []
+				},
+				{
+					"name": "get Client By PhnNumber",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8080/client/123-456-7890"
+					},
+					"response": []
+				},
+				{
+					"name": "clientcreate",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\n  \"name\": \"John\",\n  \"firstName\": \"John\",\n  \"lastName\": \"Doe\",\n  \"email\": \"john.doe@example.com\",\n  \"phoneNumber\": \"123-456-7890\",\n  \"dateOfBirth\": \"1990-05-15T00:00:00\",\n  \"homeAddress\": \"123 Main St, Anytown, USA\",\n  \"role\": \"CLIENT\"\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8080/client/create"
+					},
+					"response": []
+				},
+				{
+					"name": "login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"userName\": \"exampleUser\",\n  \"password\": \"examplePassword\"\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8080/client/create"
+					},
+					"response": []
+				},
+				{
+					"name": "auth",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"userName\": \"exampleUser\",\n  \"password\": \"examplePassword\"\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8080/auth/login"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "event",
+			"item": [
+				{
+					"name": "event add",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": "http://localhost:8080/client/create"
+					},
+					"response": []
+				},
+				{
+					"name": "getAllEvents",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8080/events/availability"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "service",
+			"item": [
+				{
+					"name": "New Request",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\n  \"name\": \"Premium Package\",\n  \"price\": 199.99,\n  \"discountRate\": 10.00,\n  \"duration\": 120,\n  \"description\": \"This is a premium package offering extended services.\",\n  \"conditions\": \"No refund after booking\",\n  \"serviceFrom\": \"07:00\",\n  \"serviceTo\": \"09:00\",\n  \"availability\": [\"MONDAY\", \"WEDNESDAY\", \"FRIDAY\"],\n  \"imageUrl\": \"https://example.com/images/premium-package.jpg\"\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8080/services/create"
+					},
+					"response": []
+				},
+				{
+					"name": "getservicebyid",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\n  \"name\": \"Premium Package\",\n  \"price\": 199.99,\n  \"discountRate\": 10.00,\n  \"duration\": 120,\n  \"description\": \"This is a premium package offering extended services.\",\n  \"conditions\": \"No refund after booking\",\n  \"serviceFrom\": \"07:00\",\n  \"serviceTo\": \"09:00\",\n  \"availability\": [\"MONDAY\", \"WEDNESDAY\", \"FRIDAY\"],\n  \"imageUrl\": \"https://example.com/images/premium-package.jpg\"\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8080/services/create"
+					},
+					"response": []
+				},
+				{
+					"name": "getAllServicesd",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\n  \"name\": \"Premium Package\",\n  \"price\": 199.99,\n  \"discountRate\": 10.00,\n  \"duration\": 120,\n  \"description\": \"This is a premium package offering extended services.\",\n  \"conditions\": \"No refund after booking\",\n  \"serviceFrom\": \"07:00\",\n  \"serviceTo\": \"09:00\",\n  \"availability\": [\"MONDAY\", \"WEDNESDAY\", \"FRIDAY\"],\n  \"imageUrl\": \"https://example.com/images/premium-package.jpg\"\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8080/services/services"
+					},
+					"response": []
+				},
+				{
+					"name": "servicesSearch",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8080/services/search"
+					},
+					"response": []
+				},
+				{
+					"name": "getServicesByBusinessId",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\n  \"name\": \"Premium Package\",\n  \"price\": 199.99,\n  \"discountRate\": 10.00,\n  \"duration\": 120,\n  \"description\": \"This is a premium package offering extended services.\",\n  \"conditions\": \"No refund after booking\",\n  \"serviceFrom\": \"07:00\",\n  \"serviceTo\": \"09:00\",\n  \"availability\": [\"MONDAY\", \"WEDNESDAY\", \"FRIDAY\"],\n  \"imageUrl\": \"https://example.com/images/premium-package.jpg\"\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8080/services/services"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "packages",
+			"item": [
+				{
+					"name": "New Request",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\n    \"name\": \"Premium Package\",\n    \"duration\": \"3 Months\",\n    \"maximumCount\": \"10\",\n    \"price\": 199.99\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8080/packages/create"
+					},
+					"response": []
+				},
+				{
+					"name": "getAllPackages",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\n    \"name\": \"Premium Package\",\n    \"duration\": \"3 Months\",\n    \"maximumCount\": \"10\",\n    \"price\": 199.99\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8080/packages/create"
+					},
+					"response": []
+				},
+				{
+					"name": "getpackagesBybusine",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8080/packages/get/1"
+					},
+					"response": []
+				},
+				{
+					"name": "getpackagesBybusine paginations",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8080/packages/get/1"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "boocking",
+			"item": [
+				{
+					"name": "CREATEBOOKING",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\n    \"clientNote\": \"Please arrive 10 minutes early.\",\n    \"businessNote\": \"Prepare the meeting room.\",\n    \"isPaid\": true,\n    \"startingTime\": \"14:30:00\",\n    \"bookingDate\": \"2024-10-30\",\n    \"clientId\": 1,\n    \"serviceId\": 1,\n    \"packageId\": 1\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8080/feedback/1"
+					},
+					"response": []
+				},
+				{
+					"name": "getbooking",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\n    \"clientNote\": \"Please arrive 10 minutes early.\",\n    \"businessNote\": \"Prepare the meeting room.\",\n    \"isPaid\": true,\n    \"startingTime\": \"14:30:00\",\n    \"bookingDate\": \"2024-10-30\",\n    \"clientId\": 1,\n    \"serviceId\": 1,\n    \"packageId\": 1\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8080/clients/1"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "feedback",
+			"item": [
+				{
+					"name": "New Request",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\n  \"clientId\": 1,\n  \"serviceId\": 1,\n  \"bookingId\": 1,\n  \"rating\": 4,\n  \"comments\": \"Excellent service! erfrffref\"\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8080/feedback/create"
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
