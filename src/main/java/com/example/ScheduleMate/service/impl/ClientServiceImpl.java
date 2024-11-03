@@ -1,8 +1,12 @@
 package com.example.ScheduleMate.service.impl;
 
+
+import com.example.ScheduleMate.configs.exception.CommonException;
+
 import com.example.ScheduleMate.Notification.BookingNotificationEvent;
 import com.example.ScheduleMate.Notification.NotificationService;
 import com.example.ScheduleMate.config.exception.CommonException;
+
 import com.example.ScheduleMate.dto.EmailDto;
 import com.example.ScheduleMate.dto.UserDto;
 import com.example.ScheduleMate.dto.ClientDto;
@@ -34,7 +38,8 @@ public class ClientServiceImpl implements ClientService {
     @Override
     public void createClient(ClientDto client) {
 
-        Optional<Client> res = Optional.ofNullable(clientRepository.findByEmail(client.getEmail()));
+        Optional<Client> res = clientRepository.findByEmail(client.getEmail());
+
 
         if (res.isPresent()) {
             throw new CommonException(ResponseCode.DUPLICATE);
@@ -66,7 +71,7 @@ public class ClientServiceImpl implements ClientService {
 
     @Override
     public boolean authenticateClient(UserDto userDto) {
-        Optional<Client> clientByEmail = Optional.ofNullable(clientRepository.findByEmail(userDto.getUserName()));
+        Optional<Client> clientByEmail = clientRepository.findByEmail(userDto.getUserName());
 
         if (clientByEmail.isPresent()) {
             return com.example.ScheduleMate.service.Impl.PasswordUtil.verifyPassword(userDto.getPassword(), clientByEmail.get().getPassword());

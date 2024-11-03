@@ -5,7 +5,11 @@ import com.example.ScheduleMate.entity.Client;
 import com.example.ScheduleMate.entity.Packages;
 import com.example.ScheduleMate.entity.Services;
 import com.fasterxml.jackson.annotation.JsonProperty;
+
+import jakarta.validation.constraints.NotNull;
+
 import jakarta.persistence.*;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -18,6 +22,11 @@ import java.time.LocalTime;
 @NoArgsConstructor
 @AllArgsConstructor
 public class BookingDto {
+
+    @NotNull(message = "bookingId is required")
+    @JsonProperty("bookingId")
+    private Long bookingId;
+
 
     @JsonProperty("Id")
     private Long Id;
@@ -37,14 +46,33 @@ public class BookingDto {
     @JsonProperty("bookingDate")
     private LocalDate bookingDate;
 
+
+    @NotNull(message = "clientId is required")
     @JsonProperty("clientId")
     private Long clientId;
+
+
+    @NotNull(message = "eventId is required")
+    @JsonProperty("eventId")
+    private Long eventId;
+
+    @NotNull(message = "serviceId is required")
+    @JsonProperty("serviceId")
+    private Long serviceId;
+
+    @NotNull(message = "slotId is required")
+    @JsonProperty("slotId")
+    private Long slotId;
+
+    @JsonProperty("notes")
+    private String notes;
 
     @JsonProperty("serviceId")
     private Long serviceId;
 
     @JsonProperty("packageId")
     private Long packageId;
+
 
     @JsonProperty("status")
     private String status;

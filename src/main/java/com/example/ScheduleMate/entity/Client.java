@@ -7,7 +7,10 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
@@ -15,7 +18,11 @@ import java.util.List;
 @Getter
 @Setter
 @Table(name = "client")
+
+public class Client extends BaseEntity implements UserDetails {
+
 public class Client extends BaseEntity {
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,6 +36,9 @@ public class Client extends BaseEntity {
 
     @Column(name = "lastName")
     private String lastName;
+
+    @Column(nullable = false)
+    private String fullName;
 
     @Column(name = "email")
     private String email;
@@ -59,8 +69,44 @@ public class Client extends BaseEntity {
     @OneToMany(mappedBy = "client", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Feedback> feedbacks;
 
+    @Column(name = "homeAddress")
+    private String homeAddress;
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of();
+    }
+
+    @Override
+    public String getUsername() {
+        return email;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
     @JsonIgnore
     @OneToMany(mappedBy = "business", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Feedback> businessFeedback;
 
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
 }

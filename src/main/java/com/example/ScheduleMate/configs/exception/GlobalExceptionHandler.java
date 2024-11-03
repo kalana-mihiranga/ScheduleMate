@@ -1,4 +1,4 @@
-package com.example.ScheduleMate.config.exception;
+package com.example.ScheduleMate.configs.exception;
 
 import com.amazonaws.services.chimesdkmeetings.model.UnauthorizedException;
 import com.example.ScheduleMate.endpoints.APIResponse;

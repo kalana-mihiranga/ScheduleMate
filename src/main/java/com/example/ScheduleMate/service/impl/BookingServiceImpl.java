@@ -2,7 +2,13 @@ package com.example.ScheduleMate.service.impl;
 
 import com.example.ScheduleMate.config.exception.CommonException;
 import com.example.ScheduleMate.dto.BookingDto;
+
+import com.example.ScheduleMate.entity.Booking;
+import com.example.ScheduleMate.entity.BookingStatus;
+import com.example.ScheduleMate.notification.events.BookingNotificationEvent;
+
 import com.example.ScheduleMate.entity.*;
+
 import com.example.ScheduleMate.repository.BookingRepository;
 import com.example.ScheduleMate.repository.ClientRepository;
 import com.example.ScheduleMate.repository.PackagesRepository;
@@ -11,6 +17,7 @@ import com.example.ScheduleMate.service.BookingService;
 import com.example.ScheduleMate.utils.ResponseCode;
 import com.example.ScheduleMate.utils.converters.BookingDtoUtils;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,12 +31,22 @@ import java.util.stream.Collectors;
 public class BookingServiceImpl implements BookingService {
     private final BookingRepository bookingRepository;
     private final ServicesRepository servicesRepository;
+
+
+    private final ApplicationEventPublisher eventPublisher;
+
     private final ClientRepository clientRepository;
     private final PackagesRepository packagesRepository;
 
     @Override
     @Transactional
     public void createBooking(BookingDto booking) {
+
+        Booking bookingDetails = BookingDtoUtils.BOOKING_DTO_TO_BOOKING_FUNCTION.apply(booking);
+        bookingDetails.setStatus(BookingStatus.PENDING);
+        bookingDetails.setBookingTime(java.time.LocalDateTime.now());
+        bookingDetails.setServices(servicesRepository.findById(booking.getServiceId()).orElse(null));
+=======
 
         Optional<Client> clientResult = Optional.of(clientRepository.getById(booking.getClientId()));
         Optional<Services> serviceResult = Optional.of(servicesRepository.getById(booking.getServiceId()));
@@ -69,6 +86,8 @@ public class BookingServiceImpl implements BookingService {
 
         }
 
+        eventPublisher.publishEvent(new BookingNotificationEvent(this, "client", "New booking confirmed!", "push"));
+//        eventPublisher.publishEvent(new BookingNotificationEvent(this, "business", "Your booking has been approved.", "inapp"));
     }
 
     @Override

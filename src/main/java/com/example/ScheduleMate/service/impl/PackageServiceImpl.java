@@ -19,6 +19,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import java.util.List;
+
 
 @Service
 @RequiredArgsConstructor
@@ -74,6 +76,35 @@ public class PackageServiceImpl implements PackageService {
 
     }
 
+
+    @Override
+    public PackageDto getPackageById(Long id) {
+        Packages pkg = packagesRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Package not found with id " + id));
+        return objectMapper.convertValue(pkg, PackageDto.class);
+    }
+
+    @Override
+    public void updatePackage(Long id, PackageDto packageDto) {
+        Packages pkg = packagesRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Package not found with id " + id));
+
+        pkg.setName(packageDto.getName());
+        pkg.setDuration(packageDto.getDuration());
+        pkg.setMaximumCount(packageDto.getMaximumCount());
+        pkg.setPrice(packageDto.getPrice());
+
+        packagesRepository.save(pkg);
+    }
+
+    @Override
+    public void deletePackage(Long id) {
+        if (!packagesRepository.existsById(id)) {
+            throw new RuntimeException("Package not found with id " + id);
+        }
+        packagesRepository.deleteById(id);
+    }
+
     @Override
     public Page<PackageDto> getPackageListByBusinessId(Long id, Pageable pageable) {
 
@@ -86,4 +117,5 @@ public class PackageServiceImpl implements PackageService {
             throw new CommonException(ResponseCode.NOT_FOUND);
 
         }}
+
 }

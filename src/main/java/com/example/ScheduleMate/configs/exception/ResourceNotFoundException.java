@@ -1,4 +1,4 @@
-package com.example.ScheduleMate.config.exception;
+package com.example.ScheduleMate.configs.exception;
 
 public class ResourceNotFoundException extends RuntimeException {
     public ResourceNotFoundException(String message){

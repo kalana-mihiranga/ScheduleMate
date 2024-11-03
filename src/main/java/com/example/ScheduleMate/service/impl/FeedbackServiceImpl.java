@@ -1,6 +1,6 @@
 package com.example.ScheduleMate.service.impl;
 
-import com.example.ScheduleMate.config.exception.CommonException;
+import com.example.ScheduleMate.configs.exception.CommonException;
 import com.example.ScheduleMate.dto.FeedbackDto;
 import com.example.ScheduleMate.entity.Client;
 import com.example.ScheduleMate.entity.Feedback;
@@ -15,6 +15,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -47,5 +48,39 @@ public class FeedbackServiceImpl implements FeedbackService {
             throw new CommonException(ResponseCode.RESOURCE_NOT_FOUND);
         }
 
+    }
+
+    @Override
+    public List<FeedbackDto> getAllFeedbacks() {
+        return feedbackRepository.findAll().stream()
+                .map(feedback -> objectMapper.convertValue(feedback, FeedbackDto.class))
+                .toList();
+    }
+
+    @Override
+    public FeedbackDto getFeedbackById(Long id) {
+        Feedback feedback = feedbackRepository.findById(id)
+                .orElseThrow(() -> new CommonException(ResponseCode.NOT_FOUND));
+        return objectMapper.convertValue(feedback, FeedbackDto.class);
+    }
+
+    @Override
+    public void updateFeedback(Long id, FeedbackDto feedbackDto) {
+        Feedback feedback = feedbackRepository.findById(id)
+                .orElseThrow(() -> new CommonException(ResponseCode.NOT_FOUND));
+
+        feedback.setRating(feedbackDto.getRating());
+        feedback.setComments(feedbackDto.getComments());
+        // Update relationships if necessary, similar to createFeedback
+
+        feedbackRepository.save(feedback);
+    }
+
+    @Override
+    public void deleteFeedback(Long id) {
+        if (!feedbackRepository.existsById(id)) {
+            throw new CommonException(ResponseCode.NOT_FOUND);
+        }
+        feedbackRepository.deleteById(id);
     }
 }

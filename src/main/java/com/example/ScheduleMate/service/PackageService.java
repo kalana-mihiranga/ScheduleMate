@@ -13,8 +13,16 @@ import java.util.List;
 
 public interface PackageService {
     void createPackage(PackageDto packages);
+
+
+    PackageDto getPackageById(Long id);
+
+    void updatePackage(Long id, PackageDto packageDto);
+
+    void deletePackage(Long id);
+
     List<PackageDto> getBusinessPackages(Long id);
     List<PackageDto> getAllPackages();
 
-    Page<PackageDto> getPackageListByBusinessId(Long id, Pageable pageable);
+
 }

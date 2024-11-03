@@ -1,4 +1,4 @@
-package com.example.ScheduleMate.config.exception;
+package com.example.ScheduleMate.configs.exception;
 
 import com.example.ScheduleMate.utils.ResponseCode;
 import lombok.Getter;
